@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using System.Runtime.InteropServices;
-using Excel = Microsoft.Office.Interop.Excel;
 
 namespace LocalizationUE4
 {
@@ -16,7 +12,6 @@ namespace LocalizationUE4
         // DATA
         //
 
-        private const string serviceData = "--== !!! DO NOT TRANSLATE THE TEXT BELOW !!! == SERVICE DATA ==--";
         public FindDialog findDlg = null;
         public InternalFormat data = null;
 
@@ -113,55 +108,17 @@ namespace LocalizationUE4
         {
             if (importDlg.ShowDialog(this) == DialogResult.OK)
             {
-                // open excel document
-                Excel.Application App = new Excel.Application();
-                Excel.Workbooks Workbooks = App.Workbooks;
-                Excel.Workbook Workbook = Workbooks.Open(importDlg.FileName, 
-                    Type.Missing, Type.Missing, Type.Missing, Type.Missing,
-                    Type.Missing, Type.Missing, Type.Missing, Type.Missing,
-                    Type.Missing, Type.Missing, Type.Missing, Type.Missing,
-                    Type.Missing, Type.Missing);
-                Excel._Worksheet Worksheet = App.ActiveSheet;
-                Excel.Range Range = Worksheet.UsedRange;
-
-                /*
-                // read document data
-                var Cells = Range.Value2;
-                int index = 2;
-                for (; Cells[index, 1] != serviceData; index++)
+                status.Text = "Importing... Please wait.";
+                try
                 {
-                    PortableObject po = new PortableObject();
-                    po.msgctxt = Cells[index, 1];
-                    po.msgid = Cells[index, 2];
-                    po.msgstr = Cells[index, 3];
-                    portableObjects.Add(po);
+                    data = ExcelConvert.Import(importDlg.FileName);
                 }
-
-                index++; // skip "-- DO NOT TRANSLATE! -- SERVICE DATA --"
-                titleBlock = Cells[index++, 1];
-
-                foreach (var po in portableObjects)
+                catch (Exception ex)
                 {
-                    po.SourceLocation = Cells[index, 2];
-                    po.Restore();
-                    index++;
+                    MessageBox.Show(this, ex.Message, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-                */
-
-                // close excel and clear all headres
-                Marshal.ReleaseComObject(Range); Range = null;
-                Marshal.ReleaseComObject(Worksheet); Worksheet = null;
-                Workbook.Close(false, Type.Missing, Type.Missing);
-                Marshal.ReleaseComObject(Workbook); Workbook = null;
-                Workbooks.Close();
-                Marshal.ReleaseComObject(Workbooks); Workbooks = null;
-                App.Quit();
-                Marshal.ReleaseComObject(App); App = null;
-
-                // update info
-                // UpdateLocaleList();
-                status.Text = "Import succeded.";
-                // count.Text = string.Format("Lines: {0}", portableObjects.Count);
+                UpdateAll();
+                status.Text = "Import finished.";
             }
         }
 
@@ -169,86 +126,16 @@ namespace LocalizationUE4
         {
             if (data == null)
                 return;
-
-            var App = new Excel.Application();
-            // Make the object visible.
-            App.Visible = true;
-            // App.ScreenUpdating = false;
             status.Text = "Exporting... Please wait.";
-
-            // Create a new, empty workbook and add it to the collection returned 
-            // by property Workbooks. The new workbook becomes the active workbook.
-            // Add has an optional parameter for specifying a praticular template. 
-            // Because no argument is sent in this example, Add creates a new workbook. 
-            var Workbooks = App.Workbooks;
-            Workbooks.Add();
-
-            // This example uses a single workSheet. 
-            Excel._Worksheet Worksheet = App.ActiveSheet;
-
-            // Caption
-            Worksheet.Rows[1].Interior.Color = ColorTranslator.ToOle(Color.Orange);
-            Worksheet.Rows[1].Font.Bold = true;
-            Worksheet.Rows[1].HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-
-            // Establish column headings in cells A1, B1 and other.
-            Worksheet.Columns[1].ColumnWidth = 40;
-            Worksheet.Cells[1, "A"] = "ID";
-            Worksheet.Columns[2].ColumnWidth = 100;
-            Worksheet.Cells[1, "B"] = data.NativeCulture;
-            for (int i = 0, j = 3; i < data.Cultures.Count; i++)
+            try
             {
-                if (data.Cultures[i] == data.NativeCulture)
-                    continue;
-                Worksheet.Columns[j].ColumnWidth = 100;
-                Worksheet.Cells[1, j] = data.Cultures[i];
-                j++;
+                ExcelConvert.Export(data);
             }
-
-            int index = 2;
-            foreach (var ns in data.Subnamespaces)
-                foreach (var rec in ns.Children)
-                    foreach (var key in rec.Keys)
-                    {
-                        Worksheet.Cells[index, "A"] = key.Key;
-                        Worksheet.Cells[index, "B"].Interior.Color = ColorTranslator.ToOle(Color.FromArgb(255, 229, 212));
-                        Worksheet.Cells[index, "B"] = key.GetTranslationForCulture(data.NativeCulture);
-                        for (int i = 0, j = 3; i < data.Cultures.Count; i++)
-                        {
-                            if (data.Cultures[i] == data.NativeCulture)
-                                continue;
-                            Worksheet.Cells[index, j].Interior.Color = (j % 2 == 0) ? 
-                                ColorTranslator.ToOle(Color.FromArgb(200, 239, 212)) : 
-                                ColorTranslator.ToOle(Color.FromArgb(200, 235, 250));
-                            Worksheet.Cells[index, j] = key.GetTranslationForCulture(data.Cultures[i]);
-                            j++;
-                        }
-                        index++;
-                    }
-
-            Worksheet.Cells[index, "A"].Font.Color = ColorTranslator.ToOle(Color.Red);
-            Worksheet.Cells[index, "A"].Font.Bold = true;
-            Worksheet.Cells[index, "A"] = serviceData;
-            index++;
-
-            foreach (var ns in data.Subnamespaces)
-                foreach (var rec in ns.Children)
-                    foreach (var key in rec.Keys)
-                    {
-                        Worksheet.Rows[index].Font.Color = ColorTranslator.ToOle(Color.LightGray);
-                        Worksheet.Cells[index, "A"] = MakeSafeString(rec.Source);
-                        Worksheet.Cells[index, "B"] = ns.Name;
-                        Worksheet.Cells[index, "C"] = key.Key;
-                        Worksheet.Cells[index, "D"] = key.Path;
-                        index++;
-                    }
-
-            // App.ScreenUpdating = true;
-            status.Text = "Successful exporting.";
-
-            Marshal.ReleaseComObject(Worksheet); Worksheet = null;
-            Marshal.ReleaseComObject(Workbooks); Workbooks = null;
-            Marshal.ReleaseComObject(App); App = null;
+            catch (Exception ex)
+            {
+                MessageBox.Show(this, ex.Message, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            status.Text = "Export finished.";
         }
 
         //
@@ -476,11 +363,6 @@ namespace LocalizationUE4
         //
         // Utility methods
         //
-
-        private string MakeSafeString(string source)
-        {
-            return source.Replace("\r", "\\r").Replace("\n", "\\n").Replace("\"", "\\\"");
-        }
 
         private bool IsMatch(int index, string pattern, bool matchCase)
         {

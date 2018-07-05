@@ -2,7 +2,7 @@
 
 Translation Editor for Unreal Engine 4.
 
-**Compilation time and runtime dependences:**
+**Compilation time and runtime dependencies:**
 - Microsoft Visual Studio 2017
 - C# and .Net 4.0 or higher
 - Microsoft Office (Excel) with Primary Interop Assemblies 

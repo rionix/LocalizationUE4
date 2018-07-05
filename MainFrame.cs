@@ -36,6 +36,7 @@ namespace LocalizationUE4
         {
             if (openDlg.ShowDialog(this) == DialogResult.OK)
             {
+                status.Text = "Loading... Please wait.";
                 data = new InternalFormat();
 
                 string FileName = openDlg.FileName;
@@ -69,6 +70,7 @@ namespace LocalizationUE4
                 }
 
                 UpdateAll();
+                status.Text = "All files loaded.";
             }
         }
 
@@ -78,6 +80,8 @@ namespace LocalizationUE4
                 return;
             if (saveDlg.ShowDialog(this) == DialogResult.OK)
             {
+                status.Text = "Saving... Please wait.";
+
                 string FileName = saveDlg.FileName;
                 string DirName = Path.GetDirectoryName(FileName);
                 string Title = Path.GetFileNameWithoutExtension(FileName);
@@ -101,6 +105,8 @@ namespace LocalizationUE4
                 {
                     MessageBox.Show(this, ex.Message, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+
+                status.Text = "All files saved.";
             }
         }
 
@@ -152,7 +158,8 @@ namespace LocalizationUE4
 
         private void OnAbout(object sender, EventArgs e)
         {
-            AboutDialog dlg = new AboutDialog();          dlg.ShowDialog(this);
+            AboutDialog dlg = new AboutDialog();
+            dlg.ShowDialog(this);
         }
 
         private void OnExit(object sender, EventArgs e)
@@ -210,6 +217,11 @@ namespace LocalizationUE4
                 }
                 e.SuppressKeyPress = true;
             }
+        }
+
+        private void OnTranslationFocused(object sender, EventArgs e)
+        {
+            status.Text = "Press 'Ctrl' + 'Enter' to store changes.";
         }
 
         public void OnIdle(object sender, EventArgs e)
@@ -322,6 +334,21 @@ namespace LocalizationUE4
             return 0;
         }
 
+        private bool IsMatch(int index, string pattern, bool matchCase)
+        {
+            RegexOptions options = matchCase ? RegexOptions.None : RegexOptions.IgnoreCase;
+            if (index >= 0 && index < dataGrid.Rows.Count)
+            {
+                var row = dataGrid.Rows[index];
+                string source = row.Cells[3].Value.ToString();
+                string translation = row.Cells[4].Value.ToString();
+                bool source_match = Regex.IsMatch(source, pattern, options);
+                bool translation_match = Regex.IsMatch(translation, pattern, options);
+                return source_match || translation_match;
+            }
+            return false;
+        }
+
         public void FindNext(string text, bool directionDown, bool wholeWords, bool matchCase)
         {
             int count = dataGrid.Rows.Count;
@@ -329,7 +356,8 @@ namespace LocalizationUE4
             if (count < 1 || text.Trim() == "")
                 return;
 
-            int findIndex = 0, stopIndex = 0;
+            int findIndex = 0; 
+            int stopIndex = dataGrid.RowCount - 1;
             if (dataGrid.SelectedRows.Count > 0)
             {
                 stopIndex = findIndex = dataGrid.SelectedRows[0].Index;
@@ -358,25 +386,6 @@ namespace LocalizationUE4
             }
             else
                 System.Media.SystemSounds.Beep.Play();
-        }
-
-        //
-        // Utility methods
-        //
-
-        private bool IsMatch(int index, string pattern, bool matchCase)
-        {
-            RegexOptions options = matchCase ? RegexOptions.None : RegexOptions.IgnoreCase;
-            if (index >= 0 && index < dataGrid.Rows.Count)
-            {
-                var row = dataGrid.Rows[index];
-                string source = row.Cells[3].Value.ToString();
-                string translation = row.Cells[4].Value.ToString();
-                bool source_match = Regex.IsMatch(source, pattern, options);
-                bool translation_match = Regex.IsMatch(translation, pattern, options);
-                return source_match || translation_match;
-            }
-            return false;
         }
     }
 }

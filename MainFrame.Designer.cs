@@ -58,6 +58,8 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.cultureCombo = new System.Windows.Forms.ToolStripComboBox();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.findToolBtn = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.aboutToolBtn = new System.Windows.Forms.ToolStripButton();
             this.openDlg = new System.Windows.Forms.OpenFileDialog();
@@ -74,8 +76,6 @@
             this.colKey = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colSource = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colTranslation = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.findToolBtn = new System.Windows.Forms.ToolStripButton();
-            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.menu.SuspendLayout();
             this.statusbar.SuspendLayout();
             this.toolbar.SuspendLayout();
@@ -178,7 +178,7 @@
             this.findMenuBtn.Image = global::LocalizationUE4.Properties.Resources.icons8_search;
             this.findMenuBtn.Name = "findMenuBtn";
             this.findMenuBtn.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F)));
-            this.findMenuBtn.Size = new System.Drawing.Size(180, 22);
+            this.findMenuBtn.Size = new System.Drawing.Size(146, 22);
             this.findMenuBtn.Text = "Find...";
             this.findMenuBtn.Click += new System.EventHandler(this.OnShowFind);
             // 
@@ -315,6 +315,21 @@
             this.cultureCombo.Size = new System.Drawing.Size(96, 25);
             this.cultureCombo.SelectedIndexChanged += new System.EventHandler(this.OnCultureChanged);
             // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
+            // 
+            // findToolBtn
+            // 
+            this.findToolBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.findToolBtn.Image = global::LocalizationUE4.Properties.Resources.icons8_search;
+            this.findToolBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.findToolBtn.Name = "findToolBtn";
+            this.findToolBtn.Size = new System.Drawing.Size(23, 22);
+            this.findToolBtn.Text = "Find Text";
+            this.findToolBtn.Click += new System.EventHandler(this.OnShowFind);
+            // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
@@ -410,6 +425,7 @@
             this.translationEdit.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.translationEdit.Size = new System.Drawing.Size(794, 118);
             this.translationEdit.TabIndex = 3;
+            this.translationEdit.Enter += new System.EventHandler(this.OnTranslationFocused);
             this.translationEdit.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OnTranslationKeyDown);
             // 
             // dataGrid
@@ -457,7 +473,7 @@
             this.dataGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGrid.ShowEditingIcon = false;
             this.dataGrid.Size = new System.Drawing.Size(800, 197);
-            this.dataGrid.TabIndex = 4;
+            this.dataGrid.TabIndex = 0;
             this.dataGrid.SelectionChanged += new System.EventHandler(this.OnSelectedIndexChanged);
             // 
             // colNumber
@@ -506,21 +522,6 @@
             this.colTranslation.ReadOnly = true;
             this.colTranslation.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.colTranslation.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // findToolBtn
-            // 
-            this.findToolBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.findToolBtn.Image = global::LocalizationUE4.Properties.Resources.icons8_search;
-            this.findToolBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.findToolBtn.Name = "findToolBtn";
-            this.findToolBtn.Size = new System.Drawing.Size(23, 22);
-            this.findToolBtn.Text = "Find Text";
-            this.findToolBtn.Click += new System.EventHandler(this.OnShowFind);
-            // 
-            // toolStripSeparator4
-            // 
-            this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
             // 
             // MainFrame
             // 

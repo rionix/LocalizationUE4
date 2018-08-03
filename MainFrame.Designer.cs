@@ -475,6 +475,7 @@
             this.dataGrid.Size = new System.Drawing.Size(800, 197);
             this.dataGrid.TabIndex = 0;
             this.dataGrid.SelectionChanged += new System.EventHandler(this.OnSelectedIndexChanged);
+            this.dataGrid.SortCompare += new System.Windows.Forms.DataGridViewSortCompareEventHandler(this.OnSortCompare);
             // 
             // colNumber
             // 
@@ -484,7 +485,6 @@
             this.colNumber.Name = "colNumber";
             this.colNumber.ReadOnly = true;
             this.colNumber.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.colNumber.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.colNumber.Width = 48;
             // 
             // colNamespace
@@ -502,7 +502,6 @@
             this.colKey.Name = "colKey";
             this.colKey.ReadOnly = true;
             this.colKey.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.colKey.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.colKey.Width = 192;
             // 
             // colSource
@@ -512,7 +511,6 @@
             this.colSource.Name = "colSource";
             this.colSource.ReadOnly = true;
             this.colSource.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.colSource.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // colTranslation
             // 
@@ -521,7 +519,6 @@
             this.colTranslation.Name = "colTranslation";
             this.colTranslation.ReadOnly = true;
             this.colTranslation.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.colTranslation.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // MainFrame
             // 
@@ -590,14 +587,14 @@
         private System.Windows.Forms.ToolStripComboBox cultureCombo;
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
         private System.Windows.Forms.DataGridView dataGrid;
+        private System.Windows.Forms.ToolStripStatusLabel nativeCulture;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private System.Windows.Forms.ToolStripButton findToolBtn;
         private System.Windows.Forms.DataGridViewTextBoxColumn colNumber;
         private System.Windows.Forms.DataGridViewTextBoxColumn colNamespace;
         private System.Windows.Forms.DataGridViewTextBoxColumn colKey;
         private System.Windows.Forms.DataGridViewTextBoxColumn colSource;
         private System.Windows.Forms.DataGridViewTextBoxColumn colTranslation;
-        private System.Windows.Forms.ToolStripStatusLabel nativeCulture;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
-        private System.Windows.Forms.ToolStripButton findToolBtn;
     }
 }
 

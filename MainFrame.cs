@@ -26,6 +26,8 @@ namespace LocalizationUE4
             findDlg = new FindDialog();
 
             Application.Idle += new EventHandler(OnIdle);
+
+
         }
 
         //
@@ -316,6 +318,28 @@ namespace LocalizationUE4
                 }
             }
             dataGrid.ResumeLayout();
+        }
+
+        private void OnSortCompare(object sender, DataGridViewSortCompareEventArgs e)
+        {
+            if (e.Column.Index == 0)
+            {
+                int cell1AsInt = 0, cell2AsInt = 0;
+                int.TryParse(e.CellValue1.ToString(), out cell1AsInt);
+                int.TryParse(e.CellValue2.ToString(), out cell2AsInt);
+                e.SortResult = cell1AsInt - cell2AsInt;
+                e.Handled = true;
+            }
+            else if (e.Column.Index == 2)
+            {
+                var grid = sender as DataGridView;
+                string namespace1 = grid.Rows[e.RowIndex1].Cells[1].Value.ToString();
+                string namespace2 = grid.Rows[e.RowIndex2].Cells[1].Value.ToString();
+                e.SortResult = string.Compare(namespace1, namespace2);
+                if (e.SortResult == 0)
+                    e.SortResult = string.Compare(e.CellValue1.ToString(), e.CellValue2.ToString());
+                e.Handled = true;
+            }
         }
 
         //

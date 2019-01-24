@@ -31,16 +31,22 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainFrame));
             this.menu = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openMenuBtn = new System.Windows.Forms.ToolStripMenuItem();
             this.saveMenuBtn = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveAsMenuBtn = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.importMenuBtn = new System.Windows.Forms.ToolStripMenuItem();
             this.exportMenuBtn = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.exitMenuBtn = new System.Windows.Forms.ToolStripMenuItem();
+            this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.copyMenuBtn = new System.Windows.Forms.ToolStripMenuItem();
+            this.pasteMenuBtn = new System.Windows.Forms.ToolStripMenuItem();
+            this.duplicateMenuBtn = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
+            this.escapingCharactersMenuBtn = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.findMenuBtn = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -52,6 +58,9 @@
             this.toolbar = new System.Windows.Forms.ToolStrip();
             this.openToolBtn = new System.Windows.Forms.ToolStripButton();
             this.saveToolBtn = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.copyToolBtn = new System.Windows.Forms.ToolStripButton();
+            this.pasteToolBtn = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.importToolBtn = new System.Windows.Forms.ToolStripButton();
             this.exportToolBtn = new System.Windows.Forms.ToolStripButton();
@@ -87,6 +96,7 @@
             // 
             this.menu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
+            this.editToolStripMenuItem,
             this.viewToolStripMenuItem,
             this.helpToolStripMenuItem});
             this.menu.Location = new System.Drawing.Point(0, 0);
@@ -100,6 +110,7 @@
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.openMenuBtn,
             this.saveMenuBtn,
+            this.saveAsMenuBtn,
             this.toolStripMenuItem2,
             this.importMenuBtn,
             this.exportMenuBtn,
@@ -120,12 +131,20 @@
             // 
             // saveMenuBtn
             // 
-            this.saveMenuBtn.Image = global::LocalizationUE4.Properties.Resources.icons8_save_as;
+            this.saveMenuBtn.Image = global::LocalizationUE4.Properties.Resources.icons8_save;
             this.saveMenuBtn.Name = "saveMenuBtn";
             this.saveMenuBtn.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
             this.saveMenuBtn.Size = new System.Drawing.Size(194, 22);
-            this.saveMenuBtn.Text = "Save...";
+            this.saveMenuBtn.Text = "Save";
             this.saveMenuBtn.Click += new System.EventHandler(this.OnSave);
+            // 
+            // saveAsMenuBtn
+            // 
+            this.saveAsMenuBtn.Image = global::LocalizationUE4.Properties.Resources.icons8_save_as;
+            this.saveAsMenuBtn.Name = "saveAsMenuBtn";
+            this.saveAsMenuBtn.Size = new System.Drawing.Size(194, 22);
+            this.saveAsMenuBtn.Text = "Save As...";
+            this.saveAsMenuBtn.Click += new System.EventHandler(this.OnSaveAs);
             // 
             // toolStripMenuItem2
             // 
@@ -164,6 +183,56 @@
             this.exitMenuBtn.Size = new System.Drawing.Size(194, 22);
             this.exitMenuBtn.Text = "Exit";
             this.exitMenuBtn.Click += new System.EventHandler(this.OnExit);
+            // 
+            // editToolStripMenuItem
+            // 
+            this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.copyMenuBtn,
+            this.pasteMenuBtn,
+            this.duplicateMenuBtn,
+            this.toolStripMenuItem3,
+            this.escapingCharactersMenuBtn});
+            this.editToolStripMenuItem.Name = "editToolStripMenuItem";
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(39, 20);
+            this.editToolStripMenuItem.Text = "Edit";
+            // 
+            // copyMenuBtn
+            // 
+            this.copyMenuBtn.Image = global::LocalizationUE4.Properties.Resources.icons8_copy;
+            this.copyMenuBtn.Name = "copyMenuBtn";
+            this.copyMenuBtn.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
+            this.copyMenuBtn.Size = new System.Drawing.Size(180, 22);
+            this.copyMenuBtn.Text = "Copy";
+            this.copyMenuBtn.Click += new System.EventHandler(this.OnCopy);
+            // 
+            // pasteMenuBtn
+            // 
+            this.pasteMenuBtn.Image = global::LocalizationUE4.Properties.Resources.icons8_paste;
+            this.pasteMenuBtn.Name = "pasteMenuBtn";
+            this.pasteMenuBtn.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
+            this.pasteMenuBtn.Size = new System.Drawing.Size(180, 22);
+            this.pasteMenuBtn.Text = "Paste";
+            this.pasteMenuBtn.Click += new System.EventHandler(this.OnPaste);
+            // 
+            // duplicateMenuBtn
+            // 
+            this.duplicateMenuBtn.Name = "duplicateMenuBtn";
+            this.duplicateMenuBtn.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.D)));
+            this.duplicateMenuBtn.Size = new System.Drawing.Size(180, 22);
+            this.duplicateMenuBtn.Text = "Duplicate";
+            this.duplicateMenuBtn.Click += new System.EventHandler(this.OnDuplicate);
+            // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(177, 6);
+            // 
+            // escapingCharactersMenuBtn
+            // 
+            this.escapingCharactersMenuBtn.Name = "escapingCharactersMenuBtn";
+            this.escapingCharactersMenuBtn.Size = new System.Drawing.Size(180, 22);
+            this.escapingCharactersMenuBtn.Text = "Escaping Characters";
+            this.escapingCharactersMenuBtn.Click += new System.EventHandler(this.OnReplaceNewLine);
             // 
             // viewToolStripMenuItem
             // 
@@ -236,6 +305,9 @@
             this.toolbar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.openToolBtn,
             this.saveToolBtn,
+            this.toolStripSeparator5,
+            this.copyToolBtn,
+            this.pasteToolBtn,
             this.toolStripSeparator1,
             this.importToolBtn,
             this.exportToolBtn,
@@ -265,12 +337,37 @@
             // saveToolBtn
             // 
             this.saveToolBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.saveToolBtn.Image = global::LocalizationUE4.Properties.Resources.icons8_save_as;
+            this.saveToolBtn.Image = global::LocalizationUE4.Properties.Resources.icons8_save;
             this.saveToolBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.saveToolBtn.Name = "saveToolBtn";
             this.saveToolBtn.Size = new System.Drawing.Size(23, 22);
             this.saveToolBtn.Text = "Save";
             this.saveToolBtn.Click += new System.EventHandler(this.OnSave);
+            // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 25);
+            // 
+            // copyToolBtn
+            // 
+            this.copyToolBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.copyToolBtn.Image = global::LocalizationUE4.Properties.Resources.icons8_copy;
+            this.copyToolBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.copyToolBtn.Name = "copyToolBtn";
+            this.copyToolBtn.Size = new System.Drawing.Size(23, 22);
+            this.copyToolBtn.Text = "Copy to Clipboard";
+            this.copyToolBtn.Click += new System.EventHandler(this.OnCopy);
+            // 
+            // pasteToolBtn
+            // 
+            this.pasteToolBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.pasteToolBtn.Image = global::LocalizationUE4.Properties.Resources.icons8_paste;
+            this.pasteToolBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.pasteToolBtn.Name = "pasteToolBtn";
+            this.pasteToolBtn.Size = new System.Drawing.Size(23, 22);
+            this.pasteToolBtn.Text = "Paste from Clipboard";
+            this.pasteToolBtn.Click += new System.EventHandler(this.OnPaste);
             // 
             // toolStripSeparator1
             // 
@@ -354,6 +451,7 @@
             // 
             this.saveDlg.DefaultExt = "manifest";
             this.saveDlg.Filter = "Localization Manifest|*.manifest|All Files|*.*";
+            this.saveDlg.OverwritePrompt = false;
             // 
             // importDlg
             // 
@@ -530,7 +628,6 @@
             this.Controls.Add(this.toolbar);
             this.Controls.Add(this.statusbar);
             this.Controls.Add(this.menu);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menu;
             this.MinimumSize = new System.Drawing.Size(320, 240);
             this.Name = "MainFrame";
@@ -595,6 +692,16 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colKey;
         private System.Windows.Forms.DataGridViewTextBoxColumn colSource;
         private System.Windows.Forms.DataGridViewTextBoxColumn colTranslation;
+        private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem copyMenuBtn;
+        private System.Windows.Forms.ToolStripMenuItem pasteMenuBtn;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
+        private System.Windows.Forms.ToolStripMenuItem escapingCharactersMenuBtn;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
+        private System.Windows.Forms.ToolStripButton copyToolBtn;
+        private System.Windows.Forms.ToolStripButton pasteToolBtn;
+        private System.Windows.Forms.ToolStripMenuItem duplicateMenuBtn;
+        private System.Windows.Forms.ToolStripMenuItem saveAsMenuBtn;
     }
 }
 

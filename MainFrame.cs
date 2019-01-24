@@ -3,6 +3,7 @@ using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using System.Media;
 
 namespace LocalizationUE4
 {
@@ -14,6 +15,7 @@ namespace LocalizationUE4
 
         public FindDialog findDlg = null;
         public InternalFormat data = null;
+        public string fileName = "";
 
         //
         // Constructors and destructor
@@ -22,12 +24,11 @@ namespace LocalizationUE4
         public MainFrame()
         {
             InitializeComponent();
+            Icon = Properties.Resources.icon_main;
 
             findDlg = new FindDialog();
 
             Application.Idle += new EventHandler(OnIdle);
-
-
         }
 
         //
@@ -41,18 +42,18 @@ namespace LocalizationUE4
                 status.Text = "Loading... Please wait.";
                 data = new InternalFormat();
 
-                string FileName = openDlg.FileName;
-                string DirName = Path.GetDirectoryName(FileName);
-                string Title = Path.GetFileNameWithoutExtension(FileName);
+                fileName = openDlg.FileName;
+                string DirName = Path.GetDirectoryName(fileName);
+                string Title = Path.GetFileNameWithoutExtension(fileName);
                 string FileText = "";
                 byte[] FileData = null;
 
                 try
                 {
-                    FileText = File.ReadAllText(FileName);
-                    data.LoadFromManifest(FileName, FileText);
+                    FileText = File.ReadAllText(fileName);
+                    data.LoadFromManifest(fileName, FileText);
 
-                    string metaname = Path.ChangeExtension(FileName, "locmeta");
+                    string metaname = Path.ChangeExtension(fileName, "locmeta");
                     FileData = File.ReadAllBytes(metaname);
                     data.LoadFromLocMeta(FileData);
 
@@ -80,35 +81,45 @@ namespace LocalizationUE4
         {
             if (data == null)
                 return;
+            if (fileName == "")
+                return;
+
+            status.Text = "Saving... Please wait.";
+
+            string DirName = Path.GetDirectoryName(fileName);
+            string Title = Path.GetFileNameWithoutExtension(fileName);
+            string FileText = "";
+
+            try
+            {
+                FileText = data.SaveToManifest();
+                File.WriteAllText(fileName, FileText, Encoding.Unicode);
+
+                foreach (var culture in data.Cultures)
+                {
+                    string dname = Path.Combine(DirName, culture);
+                    string fname = Path.Combine(dname, Title + ".archive");
+                    FileText = data.SaveToArchive(culture);
+                    Directory.CreateDirectory(dname);
+                    File.WriteAllText(fname, FileText, Encoding.Unicode);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(this, ex.Message, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            status.Text = "All files saved.";
+        }
+
+        private void OnSaveAs(object sender, EventArgs e)
+        {
+            if (data == null)
+                return;
             if (saveDlg.ShowDialog(this) == DialogResult.OK)
             {
-                status.Text = "Saving... Please wait.";
-
-                string FileName = saveDlg.FileName;
-                string DirName = Path.GetDirectoryName(FileName);
-                string Title = Path.GetFileNameWithoutExtension(FileName);
-                string FileText = "";
-
-                try
-                {
-                    FileText = data.SaveToManifest();
-                    File.WriteAllText(FileName, FileText, Encoding.Unicode);
-
-                    foreach (var culture in data.Cultures)
-                    {
-                        string dname = Path.Combine(DirName, culture);
-                        string fname = Path.Combine(dname, Title + ".archive");
-                        FileText = data.SaveToArchive(culture);
-                        Directory.CreateDirectory(dname);
-                        File.WriteAllText(fname, FileText, Encoding.Unicode);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(this, ex.Message, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-
-                status.Text = "All files saved.";
+                fileName = saveDlg.FileName;
+                OnSave(sender, e);
             }
         }
 
@@ -144,6 +155,68 @@ namespace LocalizationUE4
                 MessageBox.Show(this, ex.Message, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             status.Text = "Export finished.";
+        }
+
+        //
+        // Edit actions
+        //
+
+        private void OnCopy(object sender, EventArgs e)
+        {
+            if (translationEdit.Focused)
+                translationEdit.Copy();
+            else
+            {
+                if (dataGrid.SelectedRows.Count > 0)
+                {
+                    DataGridViewRow row = dataGrid.SelectedRows[0];
+                    string text = row.Cells[4].Value.ToString();
+                    if (escapingCharactersMenuBtn.Checked)
+                        text = text.Replace("\r", "\\r").Replace("\n", "\\n").Replace("\"", "\\\"");
+                    if (text.Length > 0)
+                        Clipboard.SetText(text);
+                    else
+                        Clipboard.Clear();
+                }
+                else
+                    SystemSounds.Beep.Play();
+            }
+        }
+
+        private void OnPaste(object sender, EventArgs e)
+        {
+            if (translationEdit.Focused)
+                translationEdit.Paste();
+            else
+            {
+                if (dataGrid.SelectedRows.Count > 0 && Clipboard.ContainsText())
+                {
+                    DataGridViewRow row = dataGrid.SelectedRows[0];
+                    string text = Clipboard.GetText();
+                    if (escapingCharactersMenuBtn.Checked)
+                        text = text.Replace("\\r", "\r").Replace("\\n", "\n").Replace("\\\"", "\"");
+                    SetRowTranslation(row, text);
+                    translationEdit.Text = text;
+                }
+                else
+                    SystemSounds.Beep.Play();
+            }
+        }
+
+        private void OnDuplicate(object sender, EventArgs e)
+        {
+            if (dataGrid.SelectedRows.Count > 0)
+            {
+                DataGridViewRow row = dataGrid.SelectedRows[0];
+                string text = row.Cells[3].Value.ToString();
+                SetRowTranslation(row, text);
+                translationEdit.Text = text;
+            }
+        }
+
+        private void OnReplaceNewLine(object sender, EventArgs e)
+        {
+            escapingCharactersMenuBtn.Checked = !escapingCharactersMenuBtn.Checked;
         }
 
         //
@@ -190,7 +263,10 @@ namespace LocalizationUE4
                     namespaceEdit.Text = row.Cells[1].Value.ToString();
                     keyEdit.Text = key.Key;
                     pathEdit.Text = key.Path;
-                    translationEdit.Text = row.Cells[4].Value.ToString();
+                    if (row.Cells[4].Value != null)
+                        translationEdit.Text = row.Cells[4].Value.ToString();
+                    else
+                        translationEdit.Text = "";
                 }
             }
             else
@@ -207,16 +283,7 @@ namespace LocalizationUE4
             if (e.KeyCode == Keys.Return && e.Control == true)
             {
                 if (dataGrid.SelectedRows.Count > 0)
-                {
-                    string culture = cultureCombo.SelectedItem.ToString();
-                    var row = dataGrid.SelectedRows[0];
-                    InternalKey key = (InternalKey)row.Tag;
-                    if (key != null)
-                    {
-                        row.Cells[4].Value = translationEdit.Text;
-                        key.SetTranslationForCulture(culture, translationEdit.Text);
-                    }
-                }
+                    SetRowTranslation(dataGrid.SelectedRows[0], translationEdit.Text);
                 e.SuppressKeyPress = true;
             }
         }
@@ -230,6 +297,7 @@ namespace LocalizationUE4
         {
             saveMenuBtn.Enabled = (data != null);
             saveToolBtn.Enabled = (data != null);
+            saveAsMenuBtn.Enabled = (data != null);
             exportMenuBtn.Enabled = (data != null);
             exportToolBtn.Enabled = (data != null);
             findMenuBtn.Checked = findDlg.Visible;
@@ -380,7 +448,7 @@ namespace LocalizationUE4
             if (count < 1 || text.Trim() == "")
                 return;
 
-            int findIndex = 0; 
+            int findIndex = 0;
             int stopIndex = dataGrid.RowCount - 1;
             if (dataGrid.SelectedRows.Count > 0)
             {
@@ -409,7 +477,23 @@ namespace LocalizationUE4
                 dataGrid.CurrentCell = row.Cells[0];
             }
             else
-                System.Media.SystemSounds.Beep.Play();
+                SystemSounds.Beep.Play();
         }
+
+        //
+        // Utilites
+        //
+
+        public void SetRowTranslation(DataGridViewRow row, string text)
+        {
+            InternalKey key = (InternalKey)row.Tag;
+            if (key != null)
+            {
+                string culture = cultureCombo.SelectedItem.ToString();
+                row.Cells[4].Value = text;
+                key.SetTranslationForCulture(culture, text);
+            }
+        }
+
     }
 }

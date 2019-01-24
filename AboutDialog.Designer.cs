@@ -69,8 +69,8 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Image = global::LocalizationUE4.Properties.Resources.icons8_geography_filled_64;
-            this.pictureBox1.InitialImage = global::LocalizationUE4.Properties.Resources.icons8_geography_filled_64;
+            this.pictureBox1.Image = global::LocalizationUE4.Properties.Resources.icons8_geography;
+            this.pictureBox1.InitialImage = global::LocalizationUE4.Properties.Resources.icons8_geography;
             this.pictureBox1.Location = new System.Drawing.Point(12, 12);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(64, 64);

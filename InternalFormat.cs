@@ -56,6 +56,19 @@ namespace LocalizationUE4
                         return key;
             return null;
         }
+
+        static public string MakeFullName(string Namespace, string Key)
+        {
+            return Namespace + ',' + Key;
+        }
+
+        static public string[] SplitFullName(string FullName)
+        {
+            string[] result = FullName.Split(',');
+            if (result.Length != 2)
+                throw new FormatException("Invalid FullName: " + FullName + "!");
+            return result;
+        }
     }
 
     public class InternalFormat
@@ -65,7 +78,6 @@ namespace LocalizationUE4
         public const int ArchiveVersion = 2;
         public const string ArchiveNamespace = "";
 
-        public string FileName { get; set; }
         public List<InternalNamespace> Subnamespaces { get; set; }
         public List<string> Cultures { get; set; }
 
@@ -74,7 +86,6 @@ namespace LocalizationUE4
 
         public void Clear()
         {
-            FileName = null;
             Subnamespaces = null;
             Cultures = null;
             NativeCulture = null;
@@ -122,7 +133,6 @@ namespace LocalizationUE4
                 Subnamespaces.Add(ins);
             }
 
-            FileName = InFileName;
             Cultures = new List<string>();
         }
 
@@ -286,14 +296,6 @@ namespace LocalizationUE4
                 if (ns.Name == Name)
                     return ns;
             return null;
-        }
-
-        public string Title
-        {
-            get
-            {
-                return Path.GetFileNameWithoutExtension(FileName);
-            }
         }
 
         public string ReadStringFromBytes(byte[] src, int index, out int offset)

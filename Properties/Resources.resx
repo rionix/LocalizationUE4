@@ -118,25 +118,37 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="icons8-export-csv" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="icons8_export_csv" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-export-csv.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="icons8-open" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="icons8_open" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-open.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="icons8-import-csv" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="icons8_import_csv" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-import-csv.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="icons8-save-as" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="icons8_save_as" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-save-as.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="icons8-about" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="icons8_about" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-about.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="icons8-geography-filled-64" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="icons8_geography" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-geography-filled-64.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="icons8-search" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="icons8_search" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\icons8-search.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icons8_copy" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-copy.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icons8_paste" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-paste.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icons8_save" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-save.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="icon_main" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\icons8-geography.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

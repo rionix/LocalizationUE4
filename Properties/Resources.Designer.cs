@@ -61,11 +61,31 @@ namespace LocalizationUE4.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon icon_main {
+            get {
+                object obj = ResourceManager.GetObject("icon_main", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap icons8_about {
             get {
-                object obj = ResourceManager.GetObject("icons8-about", resourceCulture);
+                object obj = ResourceManager.GetObject("icons8_about", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icons8_copy {
+            get {
+                object obj = ResourceManager.GetObject("icons8_copy", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -75,7 +95,7 @@ namespace LocalizationUE4.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap icons8_export_csv {
             get {
-                object obj = ResourceManager.GetObject("icons8-export-csv", resourceCulture);
+                object obj = ResourceManager.GetObject("icons8_export_csv", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -83,9 +103,9 @@ namespace LocalizationUE4.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap icons8_geography_filled_64 {
+        internal static System.Drawing.Bitmap icons8_geography {
             get {
-                object obj = ResourceManager.GetObject("icons8-geography-filled-64", resourceCulture);
+                object obj = ResourceManager.GetObject("icons8_geography", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -95,7 +115,7 @@ namespace LocalizationUE4.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap icons8_import_csv {
             get {
-                object obj = ResourceManager.GetObject("icons8-import-csv", resourceCulture);
+                object obj = ResourceManager.GetObject("icons8_import_csv", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -105,7 +125,27 @@ namespace LocalizationUE4.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap icons8_open {
             get {
-                object obj = ResourceManager.GetObject("icons8-open", resourceCulture);
+                object obj = ResourceManager.GetObject("icons8_open", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icons8_paste {
+            get {
+                object obj = ResourceManager.GetObject("icons8_paste", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap icons8_save {
+            get {
+                object obj = ResourceManager.GetObject("icons8_save", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -115,7 +155,7 @@ namespace LocalizationUE4.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap icons8_save_as {
             get {
-                object obj = ResourceManager.GetObject("icons8-save-as", resourceCulture);
+                object obj = ResourceManager.GetObject("icons8_save_as", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -125,7 +165,7 @@ namespace LocalizationUE4.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap icons8_search {
             get {
-                object obj = ResourceManager.GetObject("icons8-search", resourceCulture);
+                object obj = ResourceManager.GetObject("icons8_search", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

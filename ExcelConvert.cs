@@ -34,12 +34,12 @@ namespace LocalizationUE4
 
             // read native and other cultures
             data.Cultures = new List<string>();
-            for (int col = 2; col < Range.Columns.Count; col++)
+            for (int col = 3; col <= columnCount; col++)
             {
                 if (Cells[1, col] != null)
                 {
-                    // second column is NativeCulture
-                    if (col == 2)
+                    // third column is NativeCulture
+                    if (col == 3)
                         data.NativeCulture = Cells[1, col];
                     data.Cultures.Add(Cells[1, col]);
                 }
@@ -50,16 +50,16 @@ namespace LocalizationUE4
             List<InternalKey> keys = new List<InternalKey>(rowCount / 2);
 
             // read all translation keys
-            for (; Cells[index, 1] != serviceData; index++)
+            for (; Cells[index, 1].ToString() != serviceData; index++)
             {
                 InternalKey key = new InternalKey();
-                key.Key = Cells[index, 1];
+                key.Key = InternalNamespace.SplitFullName(Cells[index, 2])[1];
                 key.Translations = new List<InternalText>(cultureCount);
                 for (int culture = 0; culture < cultureCount; culture++)
                 {
                     InternalText translation = new InternalText();
                     translation.Culture = data.Cultures[culture];
-                    translation.Text = Cells[index, culture + 2];
+                    translation.Text = Cells[index, culture + 3];
                     key.Translations.Add(translation);
                 }
                 keys.Add(key);
@@ -124,14 +124,14 @@ namespace LocalizationUE4
             App.Visible = true;
             // App.ScreenUpdating = false;
 
-            // Create a new, empty workbook and add it to the collection returned 
+            // Create a new, empty workbook and add it to the collection returned
             // by property Workbooks. The new workbook becomes the active workbook.
-            // Add has an optional parameter for specifying a praticular template. 
-            // Because no argument is sent in this example, Add creates a new workbook. 
+            // Add has an optional parameter for specifying a praticular template.
+            // Because no argument is sent in this example, Add creates a new workbook.
             var Workbooks = App.Workbooks;
             Workbooks.Add();
 
-            // This example uses a single workSheet. 
+            // This example uses a single workSheet.
             Excel._Worksheet Worksheet = App.ActiveSheet;
 
             // Caption
@@ -140,11 +140,13 @@ namespace LocalizationUE4
             Worksheet.Rows[1].HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
 
             // Establish column headings in cells A1, B1 and other.
-            Worksheet.Columns[1].ColumnWidth = 40;
-            Worksheet.Cells[1, "A"] = "ID";
-            Worksheet.Columns[2].ColumnWidth = 100;
-            Worksheet.Cells[1, "B"] = data.NativeCulture;
-            for (int i = 0, j = 3; i < data.Cultures.Count; i++)
+            Worksheet.Columns[1].ColumnWidth = 10;
+            Worksheet.Cells[1, "A"] = "#";
+            Worksheet.Columns[2].ColumnWidth = 40;
+            Worksheet.Cells[1, "B"] = "ID";
+            Worksheet.Columns[3].ColumnWidth = 100;
+            Worksheet.Cells[1, "C"] = data.NativeCulture;
+            for (int i = 0, j = 4; i < data.Cultures.Count; i++)
             {
                 if (data.Cultures[i] == data.NativeCulture)
                     continue;
@@ -158,10 +160,12 @@ namespace LocalizationUE4
                 foreach (var rec in ns.Children)
                     foreach (var key in rec.Keys)
                     {
-                        Worksheet.Cells[index, "A"] = key.Key;
-                        Worksheet.Cells[index, "B"].Interior.Color = ColorTranslator.ToOle(Color.FromArgb(255, 229, 212));
-                        Worksheet.Cells[index, "B"] = key.GetTranslationForCulture(data.NativeCulture);
-                        for (int i = 0, j = 3; i < data.Cultures.Count; i++)
+                        Worksheet.Cells[index, "A"].HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                        Worksheet.Cells[index, "A"] = (index - 1).ToString();
+                        Worksheet.Cells[index, "B"] = InternalNamespace.MakeFullName(ns.Name, key.Key);
+                        Worksheet.Cells[index, "C"].Interior.Color = ColorTranslator.ToOle(Color.FromArgb(255, 229, 212));
+                        Worksheet.Cells[index, "C"] = key.GetTranslationForCulture(data.NativeCulture);
+                        for (int i = 0, j = 4; i < data.Cultures.Count; i++)
                         {
                             if (data.Cultures[i] == data.NativeCulture)
                                 continue;

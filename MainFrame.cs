@@ -296,7 +296,7 @@ namespace LocalizationUE4
         public void OnIdle(object sender, EventArgs e)
         {
             saveMenuBtn.Enabled = (data != null);
-            saveToolBtn.Enabled = (data != null);
+            saveToolBtn.Enabled = (data != null) && (fileName != "");
             saveAsMenuBtn.Enabled = (data != null);
             exportMenuBtn.Enabled = (data != null);
             exportToolBtn.Enabled = (data != null);

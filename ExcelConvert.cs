@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Text.RegularExpressions;
 using System.Runtime.InteropServices;
 using Excel = Microsoft.Office.Interop.Excel;
 
@@ -17,11 +18,7 @@ namespace LocalizationUE4
             // open excel document
             Excel.Application App = new Excel.Application();
             Excel.Workbooks Workbooks = App.Workbooks;
-            Excel.Workbook Workbook = Workbooks.Open(FileName,
-                Type.Missing, Type.Missing, Type.Missing, Type.Missing,
-                Type.Missing, Type.Missing, Type.Missing, Type.Missing,
-                Type.Missing, Type.Missing, Type.Missing, Type.Missing,
-                Type.Missing, Type.Missing);
+            Excel.Workbook Workbook = Workbooks.Open(FileName);
             Excel._Worksheet Worksheet = App.ActiveSheet;
             Excel.Range Range = Worksheet.UsedRange;
 
@@ -60,6 +57,10 @@ namespace LocalizationUE4
                     InternalText translation = new InternalText();
                     translation.Culture = data.Cultures[culture];
                     translation.Text = Cells[index, culture + 3];
+                    if (translation.Text == null)
+                        translation.Text = "";
+                    else // replace \n to \r\n
+                        translation.Text = Regex.Replace(translation.Text, "(?<!\r)\n", "\r\n");
                     key.Translations.Add(translation);
                 }
                 keys.Add(key);

@@ -456,7 +456,9 @@ namespace LocalizationUE4
                 findIndex = LoopIndex(findIndex, count, directionDown);
             }
 
-            string pattern = wholeWords ? string.Format("\\b{0}\\b", text) : text;
+            string pattern = Regex.Escape(text);
+            if (wholeWords)
+                pattern = @"\b" + pattern + @"\b";
 
             int resultIndex = -1;
             while (findIndex != stopIndex)

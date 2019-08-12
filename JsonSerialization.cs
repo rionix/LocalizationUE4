@@ -62,6 +62,9 @@ namespace LocalizationUE4
         [JsonProperty("Namespace")]
         public string Namespace { get; set; }
 
+        [JsonProperty("Children", NullValueHandling = NullValueHandling.Ignore)]
+        public List<LocaleManifestChild> Children { get; set; }
+
         [JsonProperty("Subnamespaces")]
         public List<LocaleManifestNamespace> Subnamespaces { get; set; }
     }
@@ -99,7 +102,10 @@ namespace LocalizationUE4
         [JsonProperty("Namespace")]
         public string Namespace { get; set; }
 
+        [JsonProperty("Children", NullValueHandling = NullValueHandling.Ignore)]
+        public List<LocaleArchiveChild> Children { get; set; }
+
         [JsonProperty("Subnamespaces")]
         public List<LocaleArchiveNamespace> Subnamespaces { get; set; }
     }
-}   
+}

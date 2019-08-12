@@ -104,12 +104,21 @@ namespace LocalizationUE4
             if (ManifestNamespace != manifest.Namespace)
                 throw new FormatException("Invalid Manifest::Namespace. Must be empty.");
 
-            Subnamespaces = new List<InternalNamespace>(manifest.Subnamespaces.Count);
+            // Move "Children" to "Subnamespace" without name
+            if (manifest.Children != null && manifest.Children.Count > 0)
+            {
+                LocaleManifestNamespace emptyNS = new LocaleManifestNamespace();
+                emptyNS.Namespace = "";
+                emptyNS.Children = manifest.Children;
+                manifest.Subnamespaces.Insert(0, emptyNS);
+            }
+
+            Subnamespaces = new List<InternalNamespace>();
             foreach (var ns in manifest.Subnamespaces)
             {
                 InternalNamespace ins = new InternalNamespace();
                 ins.Name = ns.Namespace;
-                ins.Children = new List<InternalRecord>(manifest.Subnamespaces.Count);
+                ins.Children = new List<InternalRecord>(ns.Children.Count);
 
                 foreach(var child in ns.Children)
                 {
@@ -143,7 +152,7 @@ namespace LocalizationUE4
                 LocaleManifest manifest = new LocaleManifest();
                 manifest.FormatVersion = ManifestVersion;
                 manifest.Namespace = ManifestNamespace;
-                manifest.Subnamespaces = new List<LocaleManifestNamespace>(Subnamespaces.Count);
+                manifest.Subnamespaces = new List<LocaleManifestNamespace>();
 
                 foreach (var ins in Subnamespaces)
                 {
@@ -169,7 +178,11 @@ namespace LocalizationUE4
                             ns.Children.Add(child);
                         }
                     }
-                    manifest.Subnamespaces.Add(ns);
+
+                    if (ns.Namespace == "")
+                        manifest.Children = ns.Children;
+                    else
+                        manifest.Subnamespaces.Add(ns);
                 }
 
                 return JsonConvert.SerializeObject(manifest, Formatting.Indented);
@@ -193,6 +206,15 @@ namespace LocalizationUE4
 
             if (ArchiveNamespace != archive.Namespace)
                 throw new FormatException("Invalid Archive::Namespace. Must be empty.");
+
+            // Move "Children" to "Subnamespace" without name
+            if (archive.Children != null && archive.Children.Count > 0)
+            {
+                LocaleArchiveNamespace emptyNS = new LocaleArchiveNamespace();
+                emptyNS.Namespace = "";
+                emptyNS.Children = archive.Children;
+                archive.Subnamespaces.Insert(0, emptyNS);
+            }
 
             foreach (var ns in archive.Subnamespaces)
             {
@@ -251,7 +273,11 @@ namespace LocalizationUE4
                             }
                         }
                     }
-                    archive.Subnamespaces.Add(ns);
+
+                    if (ns.Namespace == "")
+                        archive.Children = ns.Children;
+                    else
+                        archive.Subnamespaces.Add(ns);
                 }
 
                 return JsonConvert.SerializeObject(archive, Formatting.Indented);

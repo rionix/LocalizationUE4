@@ -16,3 +16,11 @@ Translation Editor for Unreal Engine 4.
 - Support export to Microsoft Excel as a single worksheet document.
 - Do not modify rows order and their identifiers.
 - Import all translations from *.xslx file.
+
+**Features:**
+- Multiline editing
+- Search by translation text
+- Sort by any column
+
+**Known issues:**
+- Looks like Foxit Reader software conflicts with Microsoft.Office.Interop

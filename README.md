@@ -11,7 +11,7 @@ Translation Editor for Unreal Engine 4.
 **Using:**
 - Open *.manifest file from [YOUR_PROJECT]\Content\Localization\Game.
 - All *.archive files will be loaded automaticaly.
-- Modify localization as you want.
+- Modify localization as you want. **[Ctrl]+[Enter]** - apply modifications to string.
 - Save to *.manifest file. All *.archive files will be saved automaticaly.
 - Support export to Microsoft Excel as a single worksheet document.
 - Do not modify rows order and their identifiers.

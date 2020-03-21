@@ -24,3 +24,6 @@ Translation Editor for Unreal Engine 4.
 
 **Known issues:**
 - Looks like Foxit Reader software conflicts with Microsoft.Office.Interop
+
+**Discussion:**
+https://forums.unrealengine.com/community/community-content-tools-and-tutorials/1497851-opensource-translation-editor-for-ue4

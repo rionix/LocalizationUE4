@@ -250,6 +250,7 @@ namespace LocalizationUE4
         {
             UpdateLocaleListTranslation();
             OnSelectedIndexChanged(sender, e);
+            UpdateVisibility();
         }
 
         private void OnSelectedIndexChanged(object sender, EventArgs e)
@@ -313,6 +314,7 @@ namespace LocalizationUE4
             UpdateCultureCombo();
             UpdateLocaleListWithoutTranslation();
             UpdateLocaleListTranslation();
+            UpdateVisibility();
             OnSelectedIndexChanged(this, null);
         }
 
@@ -388,6 +390,19 @@ namespace LocalizationUE4
             dataGrid.ResumeLayout();
         }
 
+        private void UpdateVisibility()
+        {
+            dataGrid.SuspendLayout();
+            foreach (DataGridViewRow item in dataGrid.Rows)
+            {
+                if (hideTranslatedMenuBtn.Checked)
+                    item.Visible = (item.Cells[4].Value.ToString() == "");
+                else
+                    item.Visible = true;
+            }
+            dataGrid.ResumeLayout();
+        }
+
         private void OnSortCompare(object sender, DataGridViewSortCompareEventArgs e)
         {
             if (e.Column.Index == 0)
@@ -432,6 +447,8 @@ namespace LocalizationUE4
             if (index >= 0 && index < dataGrid.Rows.Count)
             {
                 var row = dataGrid.Rows[index];
+                if (!row.Visible)
+                    return false;
                 string source = row.Cells[3].Value.ToString();
                 string translation = row.Cells[4].Value.ToString();
                 bool source_match = Regex.IsMatch(source, pattern, options);
@@ -497,5 +514,10 @@ namespace LocalizationUE4
             }
         }
 
+        private void OnHideTranslated(object sender, EventArgs e)
+        {
+            hideTranslatedMenuBtn.Checked = !hideTranslatedMenuBtn.Checked;
+            UpdateVisibility();
+        }
     }
 }

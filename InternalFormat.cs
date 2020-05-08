@@ -232,7 +232,10 @@ namespace LocalizationUE4
 
                     InternalText text = new InternalText();
                     text.Culture = Culture;
-                    text.Text = child.Translation.Text;
+                    if (ikey.parent.Source != child.Source.Text)
+                        text.Text = "";
+                    else
+                        text.Text = child.Translation.Text;
                     ikey.Translations.Add(text);
                 }
             }

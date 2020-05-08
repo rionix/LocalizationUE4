@@ -133,6 +133,7 @@
     <None Include="Resources\icons8-geography-filled-64.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\icons8-show.png" />
     <None Include="Resources\icons8-save.png" />
     <None Include="Resources\icons8-paste.png" />
     <None Include="Resources\icons8-copy.png" />

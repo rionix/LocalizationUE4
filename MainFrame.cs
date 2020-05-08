@@ -517,6 +517,7 @@ namespace LocalizationUE4
         private void OnHideTranslated(object sender, EventArgs e)
         {
             hideTranslatedMenuBtn.Checked = !hideTranslatedMenuBtn.Checked;
+            hideTranslatedToolBtn.Checked = hideTranslatedMenuBtn.Checked;
             UpdateVisibility();
         }
     }

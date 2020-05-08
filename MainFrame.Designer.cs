@@ -49,6 +49,7 @@
             this.escapingCharactersMenuBtn = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.findMenuBtn = new System.Windows.Forms.ToolStripMenuItem();
+            this.hideTranslatedMenuBtn = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutMenuBtn = new System.Windows.Forms.ToolStripMenuItem();
             this.statusbar = new System.Windows.Forms.StatusStrip();
@@ -85,7 +86,7 @@
             this.colKey = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colSource = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colTranslation = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.hideTranslatedMenuBtn = new System.Windows.Forms.ToolStripMenuItem();
+            this.hideTranslatedToolBtn = new System.Windows.Forms.ToolStripButton();
             this.menu.SuspendLayout();
             this.statusbar.SuspendLayout();
             this.toolbar.SuspendLayout();
@@ -253,6 +254,14 @@
             this.findMenuBtn.Text = "Find...";
             this.findMenuBtn.Click += new System.EventHandler(this.OnShowFind);
             // 
+            // hideTranslatedMenuBtn
+            // 
+            this.hideTranslatedMenuBtn.Image = global::LocalizationUE4.Properties.Resources.icons8_show;
+            this.hideTranslatedMenuBtn.Name = "hideTranslatedMenuBtn";
+            this.hideTranslatedMenuBtn.Size = new System.Drawing.Size(180, 22);
+            this.hideTranslatedMenuBtn.Text = "Hide Translated";
+            this.hideTranslatedMenuBtn.Click += new System.EventHandler(this.OnHideTranslated);
+            // 
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -265,7 +274,7 @@
             // 
             this.aboutMenuBtn.Image = global::LocalizationUE4.Properties.Resources.icons8_about;
             this.aboutMenuBtn.Name = "aboutMenuBtn";
-            this.aboutMenuBtn.Size = new System.Drawing.Size(107, 22);
+            this.aboutMenuBtn.Size = new System.Drawing.Size(180, 22);
             this.aboutMenuBtn.Text = "About";
             this.aboutMenuBtn.Click += new System.EventHandler(this.OnAbout);
             // 
@@ -317,6 +326,7 @@
             this.toolStripLabel1,
             this.cultureCombo,
             this.toolStripSeparator4,
+            this.hideTranslatedToolBtn,
             this.findToolBtn,
             this.toolStripSeparator3,
             this.aboutToolBtn});
@@ -620,12 +630,16 @@
             this.colTranslation.ReadOnly = true;
             this.colTranslation.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             // 
-            // hideTranslatedMenuBtn
+            // hideTranslatedToolBtn
             // 
-            this.hideTranslatedMenuBtn.Name = "hideTranslatedMenuBtn";
-            this.hideTranslatedMenuBtn.Size = new System.Drawing.Size(180, 22);
-            this.hideTranslatedMenuBtn.Text = "Hide Translated";
-            this.hideTranslatedMenuBtn.Click += new System.EventHandler(this.OnHideTranslated);
+            this.hideTranslatedToolBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.hideTranslatedToolBtn.Image = global::LocalizationUE4.Properties.Resources.icons8_show;
+            this.hideTranslatedToolBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.hideTranslatedToolBtn.Name = "hideTranslatedToolBtn";
+            this.hideTranslatedToolBtn.Size = new System.Drawing.Size(23, 22);
+            this.hideTranslatedToolBtn.Text = "Hide Translated";
+            this.hideTranslatedToolBtn.ToolTipText = "Hide Translated";
+            this.hideTranslatedToolBtn.Click += new System.EventHandler(this.OnHideTranslated);
             // 
             // MainFrame
             // 
@@ -712,6 +726,7 @@
         private System.Windows.Forms.ToolStripMenuItem duplicateMenuBtn;
         private System.Windows.Forms.ToolStripMenuItem saveAsMenuBtn;
         private System.Windows.Forms.ToolStripMenuItem hideTranslatedMenuBtn;
+        private System.Windows.Forms.ToolStripButton hideTranslatedToolBtn;
     }
 }
 

@@ -170,10 +170,15 @@ namespace LocalizationUE4
                         {
                             if (data.Cultures[i] == data.NativeCulture)
                                 continue;
-                            Worksheet.Cells[index, j].Interior.Color = (j % 2 == 0) ?
-                                ColorTranslator.ToOle(Color.FromArgb(200, 239, 212)) :
-                                ColorTranslator.ToOle(Color.FromArgb(200, 235, 250));
-                            Worksheet.Cells[index, j] = key.GetTranslationForCulture(data.Cultures[i]);
+                            string translation = key.GetTranslationForCulture(data.Cultures[i]);
+                            if (string.IsNullOrWhiteSpace(translation))
+                                Worksheet.Cells[index, j].Interior.Color =
+                                    ColorTranslator.ToOle(Color.FromArgb(255, 199, 206));
+                            else
+                                Worksheet.Cells[index, j].Interior.Color = (j % 2 == 0) ?
+                                    ColorTranslator.ToOle(Color.FromArgb(200, 239, 212)) :
+                                    ColorTranslator.ToOle(Color.FromArgb(200, 235, 250));
+                            Worksheet.Cells[index, j] = translation;
                             j++;
                         }
                         index++;

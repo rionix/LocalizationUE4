@@ -45,11 +45,12 @@ namespace LocalizationUE4
                 fileName = openDlg.FileName;
                 string DirName = Path.GetDirectoryName(fileName);
                 string Title = Path.GetFileNameWithoutExtension(fileName);
-                string FileText = "";
-                byte[] FileData = null;
 
                 try
                 {
+                    string FileText = "";
+                    byte[] FileData = null;
+
                     FileText = File.ReadAllText(fileName);
                     data.LoadFromManifest(fileName, FileText);
 
@@ -88,11 +89,10 @@ namespace LocalizationUE4
 
             string DirName = Path.GetDirectoryName(fileName);
             string Title = Path.GetFileNameWithoutExtension(fileName);
-            string FileText = "";
 
             try
             {
-                FileText = data.SaveToManifest();
+                string FileText = data.SaveToManifest();
                 File.WriteAllText(fileName, FileText, Encoding.Unicode);
 
                 foreach (var culture in data.Cultures)
@@ -296,7 +296,7 @@ namespace LocalizationUE4
 
         public void OnIdle(object sender, EventArgs e)
         {
-            saveMenuBtn.Enabled = (data != null);
+            saveMenuBtn.Enabled = (data != null) && (fileName != "");
             saveToolBtn.Enabled = (data != null) && (fileName != "");
             saveAsMenuBtn.Enabled = (data != null);
             exportMenuBtn.Enabled = (data != null);

@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.menu = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openMenuBtn = new System.Windows.Forms.ToolStripMenuItem();
@@ -69,6 +69,7 @@
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.cultureCombo = new System.Windows.Forms.ToolStripComboBox();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.hideTranslatedToolBtn = new System.Windows.Forms.ToolStripButton();
             this.findToolBtn = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.aboutToolBtn = new System.Windows.Forms.ToolStripButton();
@@ -86,7 +87,6 @@
             this.colKey = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colSource = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colTranslation = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.hideTranslatedToolBtn = new System.Windows.Forms.ToolStripButton();
             this.menu.SuspendLayout();
             this.statusbar.SuspendLayout();
             this.toolbar.SuspendLayout();
@@ -250,7 +250,7 @@
             this.findMenuBtn.Image = global::LocalizationUE4.Properties.Resources.icons8_search;
             this.findMenuBtn.Name = "findMenuBtn";
             this.findMenuBtn.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F)));
-            this.findMenuBtn.Size = new System.Drawing.Size(180, 22);
+            this.findMenuBtn.Size = new System.Drawing.Size(155, 22);
             this.findMenuBtn.Text = "Find...";
             this.findMenuBtn.Click += new System.EventHandler(this.OnShowFind);
             // 
@@ -258,7 +258,7 @@
             // 
             this.hideTranslatedMenuBtn.Image = global::LocalizationUE4.Properties.Resources.icons8_show;
             this.hideTranslatedMenuBtn.Name = "hideTranslatedMenuBtn";
-            this.hideTranslatedMenuBtn.Size = new System.Drawing.Size(180, 22);
+            this.hideTranslatedMenuBtn.Size = new System.Drawing.Size(155, 22);
             this.hideTranslatedMenuBtn.Text = "Hide Translated";
             this.hideTranslatedMenuBtn.Click += new System.EventHandler(this.OnHideTranslated);
             // 
@@ -274,7 +274,7 @@
             // 
             this.aboutMenuBtn.Image = global::LocalizationUE4.Properties.Resources.icons8_about;
             this.aboutMenuBtn.Name = "aboutMenuBtn";
-            this.aboutMenuBtn.Size = new System.Drawing.Size(180, 22);
+            this.aboutMenuBtn.Size = new System.Drawing.Size(107, 22);
             this.aboutMenuBtn.Text = "About";
             this.aboutMenuBtn.Click += new System.EventHandler(this.OnAbout);
             // 
@@ -429,6 +429,17 @@
             this.toolStripSeparator4.Name = "toolStripSeparator4";
             this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
             // 
+            // hideTranslatedToolBtn
+            // 
+            this.hideTranslatedToolBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.hideTranslatedToolBtn.Image = global::LocalizationUE4.Properties.Resources.icons8_show;
+            this.hideTranslatedToolBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.hideTranslatedToolBtn.Name = "hideTranslatedToolBtn";
+            this.hideTranslatedToolBtn.Size = new System.Drawing.Size(23, 22);
+            this.hideTranslatedToolBtn.Text = "Hide Translated";
+            this.hideTranslatedToolBtn.ToolTipText = "Hide Translated";
+            this.hideTranslatedToolBtn.Click += new System.EventHandler(this.OnHideTranslated);
+            // 
             // findToolBtn
             // 
             this.findToolBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
@@ -548,14 +559,14 @@
             this.dataGrid.BackgroundColor = System.Drawing.Color.SkyBlue;
             this.dataGrid.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataGrid.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.BackColor = System.Drawing.Color.Orange;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Orange;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colNumber,
@@ -563,14 +574,14 @@
             this.colKey,
             this.colSource,
             this.colTranslation});
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGrid.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGrid.DefaultCellStyle = dataGridViewCellStyle3;
             this.dataGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGrid.EnableHeadersVisualStyles = false;
             this.dataGrid.GridColor = System.Drawing.Color.SteelBlue;
@@ -589,8 +600,8 @@
             // 
             // colNumber
             // 
-            dataGridViewCellStyle5.ForeColor = System.Drawing.Color.SteelBlue;
-            this.colNumber.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.SteelBlue;
+            this.colNumber.DefaultCellStyle = dataGridViewCellStyle2;
             this.colNumber.HeaderText = "#";
             this.colNumber.Name = "colNumber";
             this.colNumber.ReadOnly = true;
@@ -629,17 +640,6 @@
             this.colTranslation.Name = "colTranslation";
             this.colTranslation.ReadOnly = true;
             this.colTranslation.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            // 
-            // hideTranslatedToolBtn
-            // 
-            this.hideTranslatedToolBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.hideTranslatedToolBtn.Image = global::LocalizationUE4.Properties.Resources.icons8_show;
-            this.hideTranslatedToolBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.hideTranslatedToolBtn.Name = "hideTranslatedToolBtn";
-            this.hideTranslatedToolBtn.Size = new System.Drawing.Size(23, 22);
-            this.hideTranslatedToolBtn.Text = "Hide Translated";
-            this.hideTranslatedToolBtn.ToolTipText = "Hide Translated";
-            this.hideTranslatedToolBtn.Click += new System.EventHandler(this.OnHideTranslated);
             // 
             // MainFrame
             // 

@@ -261,13 +261,10 @@ namespace LocalizationUE4
                 InternalKey key = (InternalKey)row.Tag;
                 if (key != null)
                 {
-                    namespaceEdit.Text = row.Cells[1].Value.ToString();
+                    namespaceEdit.Text = (row.Cells[1].Value != null) ? row.Cells[1].Value.ToString() : "";
                     keyEdit.Text = key.Key;
                     pathEdit.Text = key.Path;
-                    if (row.Cells[4].Value != null)
-                        translationEdit.Text = row.Cells[4].Value.ToString();
-                    else
-                        translationEdit.Text = "";
+                    translationEdit.Text = (row.Cells[4].Value != null) ? row.Cells[4].Value.ToString() : "";
                 }
             }
             else
@@ -348,7 +345,7 @@ namespace LocalizationUE4
                 {
                     foreach (var rec in ns.Children)
                     {
-                        foreach(var key in rec.Keys)
+                        foreach (var key in rec.Keys)
                         {
                             dataGrid.Rows.Add(new string[]
                             {
@@ -519,6 +516,26 @@ namespace LocalizationUE4
             hideTranslatedMenuBtn.Checked = !hideTranslatedMenuBtn.Checked;
             hideTranslatedToolBtn.Checked = hideTranslatedMenuBtn.Checked;
             UpdateVisibility();
+        }
+
+        private void OnViewDifference(object sender, EventArgs e)
+        {
+            string result = "";
+            for (int i = 0; i < dataGrid.Rows.Count; ++i)
+            {
+                var row = dataGrid.Rows[i];
+                string src = row.Cells[3].Value.ToString();
+                string dst = row.Cells[4].Value.ToString();
+                if (src != dst)
+                    result += string.Format("{0},{1}\n", row.Cells[1].Value, row.Cells[2].Value);
+            }
+            if (result != "")
+            {
+                status.Text = "Difference found!";
+                MessageBox.Show(result);
+            }
+            else
+                status.Text = "No difference.";
         }
     }
 }

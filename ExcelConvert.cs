@@ -22,6 +22,19 @@ namespace LocalizationUE4
             Excel._Worksheet Worksheet = App.ActiveSheet;
             Excel.Range Range = Worksheet.UsedRange;
 
+            // action: close excel and clear all headres
+            Action CloseExcel = () =>
+            {
+                Marshal.ReleaseComObject(Range); Range = null;
+                Marshal.ReleaseComObject(Worksheet); Worksheet = null;
+                Workbook.Close(false, Type.Missing, Type.Missing);
+                Marshal.ReleaseComObject(Workbook); Workbook = null;
+                Workbooks.Close();
+                Marshal.ReleaseComObject(Workbooks); Workbooks = null;
+                App.Quit();
+                Marshal.ReleaseComObject(App); App = null;
+            };
+
             // read document data
 
             var Cells = Range.Value2;
@@ -98,23 +111,17 @@ namespace LocalizationUE4
 
                 InternalKey ikey = keys[index - indexOfServiceData - 1];
                 if (ikey.Key != key)
+                {
+                    CloseExcel();
                     throw new FormatException("Unexpected key: " + key + "!");
+                }
 
                 ikey.Path = path;
                 ikey.parent = lastRec;
                 lastRec.Keys.Add(ikey);
             }
 
-            // close excel and clear all headres
-            Marshal.ReleaseComObject(Range); Range = null;
-            Marshal.ReleaseComObject(Worksheet); Worksheet = null;
-            Workbook.Close(false, Type.Missing, Type.Missing);
-            Marshal.ReleaseComObject(Workbook); Workbook = null;
-            Workbooks.Close();
-            Marshal.ReleaseComObject(Workbooks); Workbooks = null;
-            App.Quit();
-            Marshal.ReleaseComObject(App); App = null;
-
+            CloseExcel();
             return data;
         }
 

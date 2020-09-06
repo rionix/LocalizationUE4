@@ -50,6 +50,7 @@
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.findMenuBtn = new System.Windows.Forms.ToolStripMenuItem();
             this.hideTranslatedMenuBtn = new System.Windows.Forms.ToolStripMenuItem();
+            this.diffSourceNativeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutMenuBtn = new System.Windows.Forms.ToolStripMenuItem();
             this.statusbar = new System.Windows.Forms.StatusStrip();
@@ -87,7 +88,6 @@
             this.colKey = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colSource = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colTranslation = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.diffSourceNativeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menu.SuspendLayout();
             this.statusbar.SuspendLayout();
             this.toolbar.SuspendLayout();
@@ -235,6 +235,7 @@
             this.escapingCharactersMenuBtn.Name = "escapingCharactersMenuBtn";
             this.escapingCharactersMenuBtn.Size = new System.Drawing.Size(180, 22);
             this.escapingCharactersMenuBtn.Text = "Escaping Characters";
+            this.escapingCharactersMenuBtn.ToolTipText = "Removes escaping characters on copy/paste actions.";
             this.escapingCharactersMenuBtn.Click += new System.EventHandler(this.OnReplaceNewLine);
             // 
             // viewToolStripMenuItem
@@ -263,6 +264,14 @@
             this.hideTranslatedMenuBtn.Size = new System.Drawing.Size(180, 22);
             this.hideTranslatedMenuBtn.Text = "Hide Translated";
             this.hideTranslatedMenuBtn.Click += new System.EventHandler(this.OnHideTranslated);
+            // 
+            // diffSourceNativeToolStripMenuItem
+            // 
+            this.diffSourceNativeToolStripMenuItem.Name = "diffSourceNativeToolStripMenuItem";
+            this.diffSourceNativeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.diffSourceNativeToolStripMenuItem.Text = "Difference";
+            this.diffSourceNativeToolStripMenuItem.ToolTipText = "Searches for the difference between the source text and the translation.";
+            this.diffSourceNativeToolStripMenuItem.Click += new System.EventHandler(this.OnViewDifference);
             // 
             // helpToolStripMenuItem
             // 
@@ -642,13 +651,6 @@
             this.colTranslation.Name = "colTranslation";
             this.colTranslation.ReadOnly = true;
             this.colTranslation.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            // 
-            // diffSourceNativeToolStripMenuItem
-            // 
-            this.diffSourceNativeToolStripMenuItem.Name = "diffSourceNativeToolStripMenuItem";
-            this.diffSourceNativeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.diffSourceNativeToolStripMenuItem.Text = "Difference";
-            this.diffSourceNativeToolStripMenuItem.Click += new System.EventHandler(this.OnViewDifference);
             // 
             // MainFrame
             // 

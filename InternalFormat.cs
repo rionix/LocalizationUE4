@@ -96,7 +96,7 @@ namespace LocalizationUE4
         {
             Clear();
 
-            LocaleManifest manifest = JsonConvert.DeserializeObject<LocaleManifest>(FileText);
+            LocaleManifestNamespace manifest = JsonConvert.DeserializeObject<LocaleManifestNamespace>(FileText);
 
             if (ManifestVersion != manifest.FormatVersion)
                 throw new FormatException("Invalid Manifest::FormatVersion.");
@@ -149,7 +149,7 @@ namespace LocalizationUE4
         {
             if (Subnamespaces != null && Subnamespaces.Count > 0)
             {
-                LocaleManifest manifest = new LocaleManifest();
+                LocaleManifestNamespace manifest = new LocaleManifestNamespace();
                 manifest.FormatVersion = ManifestVersion;
                 manifest.Namespace = ManifestNamespace;
                 manifest.Subnamespaces = new List<LocaleManifestNamespace>();
@@ -199,7 +199,7 @@ namespace LocalizationUE4
             if (Cultures.Contains(Culture))
                 throw new System.ArgumentException("Culture already appended: " + Culture);
 
-            LocaleArchive archive = JsonConvert.DeserializeObject<LocaleArchive>(FileText);
+            LocaleArchiveNamespace archive = JsonConvert.DeserializeObject<LocaleArchiveNamespace>(FileText);
 
             if (ArchiveVersion != archive.FormatVersion)
                 throw new FormatException("Invalid Archive::FormatVersion.");
@@ -250,7 +250,7 @@ namespace LocalizationUE4
 
             if (Subnamespaces != null && Subnamespaces.Count > 0)
             {
-                LocaleArchive archive = new LocaleArchive();
+                LocaleArchiveNamespace archive = new LocaleArchiveNamespace();
                 archive.FormatVersion = ArchiveVersion;
                 archive.Namespace = ArchiveNamespace;
                 archive.Subnamespaces = new List<LocaleArchiveNamespace>(Subnamespaces.Count);

@@ -4,6 +4,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using System.Media;
+using System.Reflection;
 
 namespace LocalizationUE4
 {
@@ -29,6 +30,16 @@ namespace LocalizationUE4
             findDlg = new FindDialog();
 
             Application.Idle += new EventHandler(OnIdle);
+
+            // Speedup DataGreedView
+
+            if (!SystemInformation.TerminalServerSession)
+            {
+                Type dgvType = dataGrid.GetType();
+                PropertyInfo pi = dgvType.GetProperty("DoubleBuffered", BindingFlags.Instance | BindingFlags.NonPublic);
+                pi.SetValue(dataGrid, true, null);
+            }
+            OnDataGridViewResize(dataGrid, null);
         }
 
         //
@@ -499,6 +510,17 @@ namespace LocalizationUE4
         //
         // Utilites
         //
+
+        private void OnDataGridViewResize(object sender, EventArgs e)
+        {
+            int width = dataGrid.Size.Width;
+            width -= dataGrid.Columns[0].Width;
+            width -= dataGrid.Columns[1].Width;
+            width -= dataGrid.Columns[2].Width;
+            width -= SystemInformation.VerticalScrollBarWidth + 1;
+            dataGrid.Columns[3].Width = width / 2;
+            dataGrid.Columns[4].Width = width / 2;
+        }
 
         public void SetRowTranslation(DataGridViewRow row, string text)
         {

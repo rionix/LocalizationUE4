@@ -47,26 +47,17 @@ namespace LocalizationUE4
 
     public class LocaleManifestNamespace
     {
-        [JsonProperty("Namespace")]
-        public string Namespace { get; set; }
-
-        [JsonProperty("Children")]
-        public List<LocaleManifestChild> Children { get; set; }
-    }
-
-    public class LocaleManifest
-    {
-        [JsonProperty("FormatVersion")]
+        [JsonProperty("FormatVersion", NullValueHandling = NullValueHandling.Ignore)]
         public int FormatVersion { get; set; }
 
         [JsonProperty("Namespace")]
         public string Namespace { get; set; }
 
+        [JsonProperty("Subnamespaces", NullValueHandling = NullValueHandling.Ignore)]
+        public List<LocaleManifestNamespace> Subnamespaces { get; set; }
+
         [JsonProperty("Children", NullValueHandling = NullValueHandling.Ignore)]
         public List<LocaleManifestChild> Children { get; set; }
-
-        [JsonProperty("Subnamespaces")]
-        public List<LocaleManifestNamespace> Subnamespaces { get; set; }
     }
 
     //
@@ -87,25 +78,16 @@ namespace LocalizationUE4
 
     public class LocaleArchiveNamespace
     {
-        [JsonProperty("Namespace")]
-        public string Namespace { get; set; }
-
-        [JsonProperty("Children")]
-        public List<LocaleArchiveChild> Children { get; set; }
-    }
-
-    public class LocaleArchive
-    {
-        [JsonProperty("FormatVersion")]
+        [JsonProperty("FormatVersion", NullValueHandling = NullValueHandling.Ignore)]
         public int FormatVersion { get; set; }
 
         [JsonProperty("Namespace")]
         public string Namespace { get; set; }
 
+        [JsonProperty("Subnamespaces", NullValueHandling = NullValueHandling.Ignore)]
+        public List<LocaleArchiveNamespace> Subnamespaces { get; set; }
+
         [JsonProperty("Children", NullValueHandling = NullValueHandling.Ignore)]
         public List<LocaleArchiveChild> Children { get; set; }
-
-        [JsonProperty("Subnamespaces")]
-        public List<LocaleArchiveNamespace> Subnamespaces { get; set; }
     }
 }

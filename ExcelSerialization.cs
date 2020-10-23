@@ -7,9 +7,22 @@ using Excel = Microsoft.Office.Interop.Excel;
 
 namespace LocalizationUE4
 {
-    public static class ExcelConvert
+    public static class ExcelSerialization
     {
         private const string serviceData = "--== !!! DO NOT TRANSLATE THE TEXT BELOW !!! == SERVICE DATA ==--";
+
+        private static string MakeName(string Namespace, string Key)
+        {
+            return Namespace + ',' + Key;
+        }
+
+        private static string GetKey(string ExcelName)
+        {
+            string[] result = ExcelName.Split(',');
+            if (result.Length != 2)
+                throw new FormatException("Invalid ExcelName: " + ExcelName + "!");
+            return result[1];
+        }
 
         public static InternalFormat Import(string FileName)
         {
@@ -63,7 +76,7 @@ namespace LocalizationUE4
             for (; Cells[index, 1].ToString() != serviceData; index++)
             {
                 InternalRecord record = new InternalRecord();
-                record.Key = InternalNamespace.SplitFullName(Cells[index, 2])[1];
+                record.Key = GetKey(Cells[index, 2]);
                 record.Translations = new List<InternalText>(cultureCount);
                 for (int culture = 0; culture < cultureCount; culture++)
                 {
@@ -159,7 +172,7 @@ namespace LocalizationUE4
                 {
                     Worksheet.Cells[index, "A"].HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
                     Worksheet.Cells[index, "A"] = (index - 1).ToString();
-                    Worksheet.Cells[index, "B"] = InternalNamespace.MakeFullName(ns.Name, rec.Key);
+                    Worksheet.Cells[index, "B"] = MakeName(ns.Name, rec.Key);
                     Worksheet.Cells[index, "C"].Interior.Color = ColorTranslator.ToOle(Color.FromArgb(255, 229, 212));
                     Worksheet.Cells[index, "C"] = rec[data.NativeCulture];
                     for (int i = 0, j = 4; i < data.Cultures.Count; i++)

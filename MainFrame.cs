@@ -57,20 +57,17 @@ namespace LocalizationUE4
                 string DirName = Path.GetDirectoryName(fileName);
                 string Title = Path.GetFileNameWithoutExtension(fileName);
 
-                document.Clear();
-                dataGrid.Rows.Clear();
-
                 try
                 {
                     string FileText = "";
                     byte[] FileData = null;
 
                     FileText = File.ReadAllText(fileName);
-                    document.LoadFromManifest(fileName, FileText);
+                    JsonSerialization.LoadFromManifest(document, fileName, FileText);
 
                     string metaname = Path.ChangeExtension(fileName, "locmeta");
                     FileData = File.ReadAllBytes(metaname);
-                    document.LoadFromLocMeta(FileData);
+                    JsonSerialization.LoadFromLocMeta(document, FileData);
 
                     var dirs = Directory.GetDirectories(DirName);
                     foreach (var subdir in dirs)
@@ -78,7 +75,7 @@ namespace LocalizationUE4
                         string culture = subdir.Replace(DirName + Path.DirectorySeparatorChar, "");
                         string name = Path.Combine(subdir, Title + ".archive");
                         FileText = File.ReadAllText(name);
-                        document.LoadFromArchive(culture, FileText);
+                        JsonSerialization.LoadFromArchive(document, culture, FileText);
                     }
                 }
                 catch (Exception ex)
@@ -106,14 +103,14 @@ namespace LocalizationUE4
 
             try
             {
-                string FileText = document.SaveToManifest();
+                string FileText = JsonSerialization.SaveToManifest(document);
                 File.WriteAllText(fileName, FileText, Encoding.Unicode);
 
                 foreach (var culture in document.Cultures)
                 {
                     string dname = Path.Combine(DirName, culture);
                     string fname = Path.Combine(dname, Title + ".archive");
-                    FileText = document.SaveToArchive(culture);
+                    FileText = JsonSerialization.SaveToArchive(document, culture);
                     Directory.CreateDirectory(dname);
                     File.WriteAllText(fname, FileText, Encoding.Unicode);
                 }
@@ -144,7 +141,7 @@ namespace LocalizationUE4
                 status.Text = "Importing... Please wait.";
                 try
                 {
-                    document = ExcelConvert.Import(importDlg.FileName);
+                    document = ExcelSerialization.Import(importDlg.FileName);
                 }
                 catch (Exception ex)
                 {
@@ -162,7 +159,7 @@ namespace LocalizationUE4
             status.Text = "Exporting... Please wait.";
             try
             {
-                ExcelConvert.Export(document);
+                ExcelSerialization.Export(document);
             }
             catch (Exception ex)
             {
@@ -322,6 +319,7 @@ namespace LocalizationUE4
 
         private void UpdateAll()
         {
+            dataGrid.Rows.Clear();
             UpdateCultureCombo();
             UpdateLocaleListWithoutTranslation();
             UpdateLocaleListTranslation();
@@ -385,7 +383,6 @@ namespace LocalizationUE4
             if (document != null)
             {
                 string culture = cultureCombo.Text;
-                bool native = (culture == document.NativeCulture);
                 foreach (DataGridViewRow item in dataGrid.Rows)
                 {
                     InternalRecord record = (InternalRecord)item.Tag;

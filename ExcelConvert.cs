@@ -57,14 +57,14 @@ namespace LocalizationUE4
 
             int index = 2;
             int cultureCount = data.Cultures.Count;
-            List<InternalKey> keys = new List<InternalKey>(rowCount / 2);
+            List<InternalRecord> records = new List<InternalRecord>(rowCount / 2);
 
             // read all translation keys
             for (; Cells[index, 1].ToString() != serviceData; index++)
             {
-                InternalKey key = new InternalKey();
-                key.Key = InternalNamespace.SplitFullName(Cells[index, 2])[1];
-                key.Translations = new List<InternalText>(cultureCount);
+                InternalRecord record = new InternalRecord();
+                record.Key = InternalNamespace.SplitFullName(Cells[index, 2])[1];
+                record.Translations = new List<InternalText>(cultureCount);
                 for (int culture = 0; culture < cultureCount; culture++)
                 {
                     InternalText translation = new InternalText();
@@ -74,15 +74,14 @@ namespace LocalizationUE4
                         translation.Text = "";
                     else // replace \n to \r\n
                         translation.Text = Regex.Replace(translation.Text, "(?<!\r)\n", "\r\n");
-                    key.Translations.Add(translation);
+                    record.Translations.Add(translation);
                 }
-                keys.Add(key);
+                records.Add(record);
             }
 
             int indexOfServiceData = index;
-            data.Subnamespaces = new List<InternalNamespace>(rowCount / 2);
+            data.Namespaces = new List<InternalNamespace>();
             InternalNamespace lastNS = null;
-            InternalRecord lastRec = null;
 
             index++;
             for (; index < rowCount + 1; index++)
@@ -97,28 +96,19 @@ namespace LocalizationUE4
                     lastNS = new InternalNamespace();
                     lastNS.Name = ns;
                     lastNS.Children = new List<InternalRecord>();
-                    data.Subnamespaces.Add(lastNS);
-                    lastRec = null;
+                    data.Namespaces.Add(lastNS);
                 }
 
-                if (lastRec == null || lastRec.Source != source)
-                {
-                    lastRec = new InternalRecord();
-                    lastRec.Source = source;
-                    lastRec.Keys = new List<InternalKey>();
-                    lastNS.Children.Add(lastRec);
-                }
-
-                InternalKey ikey = keys[index - indexOfServiceData - 1];
-                if (ikey.Key != key)
+                InternalRecord record = records[index - indexOfServiceData - 1];
+                if (record.Key != key)
                 {
                     CloseExcel();
                     throw new FormatException("Unexpected key: " + key + "!");
                 }
 
-                ikey.Path = path;
-                ikey.parent = lastRec;
-                lastRec.Keys.Add(ikey);
+                record.Source = source;
+                record.Path = path;
+                lastNS.Children.Add(record);
             }
 
             CloseExcel();
@@ -164,49 +154,47 @@ namespace LocalizationUE4
             }
 
             int index = 2;
-            foreach (var ns in data.Subnamespaces)
+            foreach (var ns in data.Namespaces)
                 foreach (var rec in ns.Children)
-                    foreach (var key in rec.Keys)
+                {
+                    Worksheet.Cells[index, "A"].HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    Worksheet.Cells[index, "A"] = (index - 1).ToString();
+                    Worksheet.Cells[index, "B"] = InternalNamespace.MakeFullName(ns.Name, rec.Key);
+                    Worksheet.Cells[index, "C"].Interior.Color = ColorTranslator.ToOle(Color.FromArgb(255, 229, 212));
+                    Worksheet.Cells[index, "C"] = rec[data.NativeCulture];
+                    for (int i = 0, j = 4; i < data.Cultures.Count; i++)
                     {
-                        Worksheet.Cells[index, "A"].HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
-                        Worksheet.Cells[index, "A"] = (index - 1).ToString();
-                        Worksheet.Cells[index, "B"] = InternalNamespace.MakeFullName(ns.Name, key.Key);
-                        Worksheet.Cells[index, "C"].Interior.Color = ColorTranslator.ToOle(Color.FromArgb(255, 229, 212));
-                        Worksheet.Cells[index, "C"] = key.GetTranslationForCulture(data.NativeCulture);
-                        for (int i = 0, j = 4; i < data.Cultures.Count; i++)
-                        {
-                            if (data.Cultures[i] == data.NativeCulture)
-                                continue;
-                            string translation = key.GetTranslationForCulture(data.Cultures[i]);
-                            if (string.IsNullOrWhiteSpace(translation))
-                                Worksheet.Cells[index, j].Interior.Color =
-                                    ColorTranslator.ToOle(Color.FromArgb(255, 199, 206));
-                            else
-                                Worksheet.Cells[index, j].Interior.Color = (j % 2 == 0) ?
-                                    ColorTranslator.ToOle(Color.FromArgb(200, 239, 212)) :
-                                    ColorTranslator.ToOle(Color.FromArgb(200, 235, 250));
-                            Worksheet.Cells[index, j] = translation;
-                            j++;
-                        }
-                        index++;
+                        if (data.Cultures[i] == data.NativeCulture)
+                            continue;
+                        string translation = rec[data.Cultures[i]];
+                        if (string.IsNullOrWhiteSpace(translation))
+                            Worksheet.Cells[index, j].Interior.Color =
+                                ColorTranslator.ToOle(Color.FromArgb(255, 199, 206));
+                        else
+                            Worksheet.Cells[index, j].Interior.Color = (j % 2 == 0) ?
+                                ColorTranslator.ToOle(Color.FromArgb(200, 239, 212)) :
+                                ColorTranslator.ToOle(Color.FromArgb(200, 235, 250));
+                        Worksheet.Cells[index, j] = translation;
+                        j++;
                     }
+                    index++;
+                }
 
             Worksheet.Cells[index, "A"].Font.Color = ColorTranslator.ToOle(Color.Red);
             Worksheet.Cells[index, "A"].Font.Bold = true;
             Worksheet.Cells[index, "A"] = serviceData;
             index++;
 
-            foreach (var ns in data.Subnamespaces)
+            foreach (var ns in data.Namespaces)
                 foreach (var rec in ns.Children)
-                    foreach (var key in rec.Keys)
-                    {
-                        Worksheet.Rows[index].Font.Color = ColorTranslator.ToOle(Color.LightGray);
-                        Worksheet.Cells[index, "A"] = rec.Source;
-                        Worksheet.Cells[index, "B"] = ns.Name;
-                        Worksheet.Cells[index, "C"] = key.Key;
-                        Worksheet.Cells[index, "D"] = key.Path;
-                        index++;
-                    }
+                {
+                    Worksheet.Rows[index].Font.Color = ColorTranslator.ToOle(Color.LightGray);
+                    Worksheet.Cells[index, "A"] = rec.Source;
+                    Worksheet.Cells[index, "B"] = ns.Name;
+                    Worksheet.Cells[index, "C"] = rec.Key;
+                    Worksheet.Cells[index, "D"] = rec.Path;
+                    index++;
+                }
 
             // App.ScreenUpdating = true;
 

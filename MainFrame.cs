@@ -15,7 +15,7 @@ namespace LocalizationUE4
         //
 
         public FindDialog findDlg = null;
-        public InternalFormat data = null;
+        public InternalFormat document = null;
         public string fileName = "";
 
         //
@@ -51,11 +51,14 @@ namespace LocalizationUE4
             if (openDlg.ShowDialog(this) == DialogResult.OK)
             {
                 status.Text = "Loading... Please wait.";
-                data = new InternalFormat();
+                document = new InternalFormat();
 
                 fileName = openDlg.FileName;
                 string DirName = Path.GetDirectoryName(fileName);
                 string Title = Path.GetFileNameWithoutExtension(fileName);
+
+                document.Clear();
+                dataGrid.Rows.Clear();
 
                 try
                 {
@@ -63,11 +66,11 @@ namespace LocalizationUE4
                     byte[] FileData = null;
 
                     FileText = File.ReadAllText(fileName);
-                    data.LoadFromManifest(fileName, FileText);
+                    document.LoadFromManifest(fileName, FileText);
 
                     string metaname = Path.ChangeExtension(fileName, "locmeta");
                     FileData = File.ReadAllBytes(metaname);
-                    data.LoadFromLocMeta(FileData);
+                    document.LoadFromLocMeta(FileData);
 
                     var dirs = Directory.GetDirectories(DirName);
                     foreach (var subdir in dirs)
@@ -75,12 +78,12 @@ namespace LocalizationUE4
                         string culture = subdir.Replace(DirName + Path.DirectorySeparatorChar, "");
                         string name = Path.Combine(subdir, Title + ".archive");
                         FileText = File.ReadAllText(name);
-                        data.LoadFromArchive(culture, FileText);
+                        document.LoadFromArchive(culture, FileText);
                     }
                 }
                 catch (Exception ex)
                 {
-                    data = null;
+                    document = null;
                     MessageBox.Show(this, ex.Message, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
 
@@ -91,7 +94,7 @@ namespace LocalizationUE4
 
         private void OnSave(object sender, EventArgs e)
         {
-            if (data == null)
+            if (document == null)
                 return;
             if (fileName == "")
                 return;
@@ -103,14 +106,14 @@ namespace LocalizationUE4
 
             try
             {
-                string FileText = data.SaveToManifest();
+                string FileText = document.SaveToManifest();
                 File.WriteAllText(fileName, FileText, Encoding.Unicode);
 
-                foreach (var culture in data.Cultures)
+                foreach (var culture in document.Cultures)
                 {
                     string dname = Path.Combine(DirName, culture);
                     string fname = Path.Combine(dname, Title + ".archive");
-                    FileText = data.SaveToArchive(culture);
+                    FileText = document.SaveToArchive(culture);
                     Directory.CreateDirectory(dname);
                     File.WriteAllText(fname, FileText, Encoding.Unicode);
                 }
@@ -125,7 +128,7 @@ namespace LocalizationUE4
 
         private void OnSaveAs(object sender, EventArgs e)
         {
-            if (data == null)
+            if (document == null)
                 return;
             if (saveDlg.ShowDialog(this) == DialogResult.OK)
             {
@@ -141,7 +144,7 @@ namespace LocalizationUE4
                 status.Text = "Importing... Please wait.";
                 try
                 {
-                    data = ExcelConvert.Import(importDlg.FileName);
+                    document = ExcelConvert.Import(importDlg.FileName);
                 }
                 catch (Exception ex)
                 {
@@ -154,12 +157,12 @@ namespace LocalizationUE4
 
         private void OnExport(object sender, EventArgs e)
         {
-            if (data == null)
+            if (document == null)
                 return;
             status.Text = "Exporting... Please wait.";
             try
             {
-                ExcelConvert.Export(data);
+                ExcelConvert.Export(document);
             }
             catch (Exception ex)
             {
@@ -269,12 +272,12 @@ namespace LocalizationUE4
             if (dataGrid.SelectedRows.Count > 0)
             {
                 DataGridViewRow row = dataGrid.SelectedRows[0];
-                InternalKey key = (InternalKey)row.Tag;
-                if (key != null)
+                InternalRecord record = (InternalRecord)row.Tag;
+                if (record != null)
                 {
                     namespaceEdit.Text = (row.Cells[1].Value != null) ? row.Cells[1].Value.ToString() : "";
-                    keyEdit.Text = key.Key;
-                    pathEdit.Text = key.Path;
+                    keyEdit.Text = record.Key;
+                    pathEdit.Text = record.Path;
                     translationEdit.Text = (row.Cells[4].Value != null) ? row.Cells[4].Value.ToString() : "";
                 }
             }
@@ -304,11 +307,11 @@ namespace LocalizationUE4
 
         public void OnIdle(object sender, EventArgs e)
         {
-            saveMenuBtn.Enabled = (data != null) && (fileName != "");
-            saveToolBtn.Enabled = (data != null) && (fileName != "");
-            saveAsMenuBtn.Enabled = (data != null);
-            exportMenuBtn.Enabled = (data != null);
-            exportToolBtn.Enabled = (data != null);
+            saveMenuBtn.Enabled = (document != null) && (fileName != "");
+            saveToolBtn.Enabled = (document != null) && (fileName != "");
+            saveAsMenuBtn.Enabled = (document != null);
+            exportMenuBtn.Enabled = (document != null);
+            exportToolBtn.Enabled = (document != null);
             findMenuBtn.Checked = findDlg.Visible;
             findToolBtn.Checked = findDlg.Visible;
         }
@@ -328,7 +331,7 @@ namespace LocalizationUE4
 
         private void UpdateCultureCombo()
         {
-            if (data == null)
+            if (document == null)
             {
                 cultureCombo.Items.Clear();
                 nativeCulture.Text = "Native Culture";
@@ -337,11 +340,12 @@ namespace LocalizationUE4
             {
                 cultureCombo.BeginUpdate();
                 cultureCombo.Items.Clear();
-                foreach (string s in data.Cultures)
+                foreach (string s in document.Cultures)
                     cultureCombo.Items.Add(s);
-                cultureCombo.SelectedIndex = 0;
+                if (cultureCombo.Items.Count > 0)
+                    cultureCombo.SelectedIndex = 0;
                 cultureCombo.EndUpdate();
-                nativeCulture.Text = "Native Culture: [" + data.NativeCulture + "]";
+                nativeCulture.Text = "Native Culture: [" + document.NativeCulture + "]";
             }
         }
 
@@ -349,24 +353,21 @@ namespace LocalizationUE4
         {
             dataGrid.SuspendLayout();
             dataGrid.Rows.Clear();
-            if (data != null)
+            if (document != null)
             {
                 int index = 0;
-                foreach (var ns in data.Subnamespaces)
+                foreach (var ns in document.Namespaces)
                 {
                     foreach (var rec in ns.Children)
                     {
-                        foreach (var key in rec.Keys)
+                        dataGrid.Rows.Add(new string[]
                         {
-                            dataGrid.Rows.Add(new string[]
-                            {
-                                (index + 1).ToString(),
-                                ns.Name, key.Key,
-                                "", ""
-                            });
-                            dataGrid.Rows[index].Tag = key;
-                            index++;
-                        }
+                            (index + 1).ToString(),
+                            ns.Name, rec.Key,
+                            rec.Source, ""
+                        });
+                        dataGrid.Rows[index].Tag = rec;
+                        index++;
                     }
                 }
                 rowCount.Text = "Rows: " + dataGrid.RowCount.ToString();
@@ -381,18 +382,14 @@ namespace LocalizationUE4
         private void UpdateLocaleListTranslation()
         {
             dataGrid.SuspendLayout();
-            if (data != null)
+            if (document != null)
             {
-                string culture = cultureCombo.SelectedItem.ToString();
-                bool native = (culture == data.NativeCulture);
-
-                dataGrid.Columns[3].HeaderText = native ? "Source" : "Native Culture";
-
+                string culture = cultureCombo.Text;
+                bool native = (culture == document.NativeCulture);
                 foreach (DataGridViewRow item in dataGrid.Rows)
                 {
-                    InternalKey key = (InternalKey)item.Tag;
-                    item.Cells[3].Value = native ? key.parent.Source : key.GetTranslationForCulture(data.NativeCulture);
-                    item.Cells[4].Value = key.GetTranslationForCulture(culture);
+                    InternalRecord record = (InternalRecord)item.Tag;
+                    item.Cells[4].Value = record[culture];
                 }
             }
             dataGrid.ResumeLayout();
@@ -524,12 +521,12 @@ namespace LocalizationUE4
 
         public void SetRowTranslation(DataGridViewRow row, string text)
         {
-            InternalKey key = (InternalKey)row.Tag;
-            if (key != null)
+            InternalRecord record = (InternalRecord)row.Tag;
+            if (record != null)
             {
                 string culture = cultureCombo.SelectedItem.ToString();
                 row.Cells[4].Value = text;
-                key.SetTranslationForCulture(culture, text);
+                record[culture] = text;
             }
         }
 

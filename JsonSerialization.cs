@@ -1,9 +1,5 @@
-﻿using System;
-using System.IO;
-using System.Text;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Utilities;
 
 namespace LocalizationUE4
 {
@@ -47,7 +43,7 @@ namespace LocalizationUE4
 
     public class LocaleManifestNamespace
     {
-        [JsonProperty("FormatVersion", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("FormatVersion", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public int FormatVersion { get; set; }
 
         [JsonProperty("Namespace")]
@@ -58,6 +54,21 @@ namespace LocalizationUE4
 
         [JsonProperty("Children", NullValueHandling = NullValueHandling.Ignore)]
         public List<LocaleManifestChild> Children { get; set; }
+
+        public LocaleManifestNamespace CreateSubnamespace(string SubnamespaceName)
+        {
+            if (Subnamespaces == null)
+                Subnamespaces = new List<LocaleManifestNamespace>();
+
+            foreach (var sns in Subnamespaces)
+                if (sns.Namespace == SubnamespaceName)
+                    return sns;
+
+            var nns = new LocaleManifestNamespace();
+            nns.Namespace = SubnamespaceName;
+            Subnamespaces.Add(nns);
+            return nns;
+        }
     }
 
     //
@@ -78,7 +89,7 @@ namespace LocalizationUE4
 
     public class LocaleArchiveNamespace
     {
-        [JsonProperty("FormatVersion", NullValueHandling = NullValueHandling.Ignore)]
+        [JsonProperty("FormatVersion", DefaultValueHandling = DefaultValueHandling.Ignore)]
         public int FormatVersion { get; set; }
 
         [JsonProperty("Namespace")]
@@ -89,5 +100,20 @@ namespace LocalizationUE4
 
         [JsonProperty("Children", NullValueHandling = NullValueHandling.Ignore)]
         public List<LocaleArchiveChild> Children { get; set; }
+
+        public LocaleArchiveNamespace CreateSubnamespace(string SubnamespaceName)
+        {
+            if (Subnamespaces == null)
+                Subnamespaces = new List<LocaleArchiveNamespace>();
+
+            foreach (var sns in Subnamespaces)
+                if (sns.Namespace == SubnamespaceName)
+                    return sns;
+
+            var nns = new LocaleArchiveNamespace();
+            nns.Namespace = SubnamespaceName;
+            Subnamespaces.Add(nns);
+            return nns;
+        }
     }
 }

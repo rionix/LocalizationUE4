@@ -9,6 +9,7 @@ Translation Editor for Unreal Engine 4.
 - Newtonsoft.Json ver. 11 or higher
 
 **Using:**
+- Gather and Compile translations in Unreal Engine 4.
 - Open *.manifest file from [YOUR_PROJECT]\Content\Localization\Game.
 - All *.archive files will be loaded automaticaly.
 - Modify localization as you want. **[Ctrl]+[Enter]** - apply modifications to string.

@@ -7,7 +7,7 @@ using Excel = Microsoft.Office.Interop.Excel;
 
 namespace LocalizationUE4
 {
-    public static class ExcelSerialization
+    public static class ExcelSerializer
     {
         private const string serviceData = "--== !!! DO NOT TRANSLATE THE TEXT BELOW !!! == SERVICE DATA ==--";
 

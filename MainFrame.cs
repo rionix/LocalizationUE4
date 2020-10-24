@@ -63,11 +63,11 @@ namespace LocalizationUE4
                     byte[] FileData = null;
 
                     FileText = File.ReadAllText(fileName);
-                    JsonSerialization.LoadFromManifest(document, fileName, FileText);
+                    JsonSerializer.LoadFromManifest(document, fileName, FileText);
 
                     string metaname = Path.ChangeExtension(fileName, "locmeta");
                     FileData = File.ReadAllBytes(metaname);
-                    JsonSerialization.LoadFromLocMeta(document, FileData);
+                    JsonSerializer.LoadFromLocMeta(document, FileData);
 
                     var dirs = Directory.GetDirectories(DirName);
                     foreach (var subdir in dirs)
@@ -75,7 +75,7 @@ namespace LocalizationUE4
                         string culture = subdir.Replace(DirName + Path.DirectorySeparatorChar, "");
                         string name = Path.Combine(subdir, Title + ".archive");
                         FileText = File.ReadAllText(name);
-                        JsonSerialization.LoadFromArchive(document, culture, FileText);
+                        JsonSerializer.LoadFromArchive(document, culture, FileText);
                     }
                 }
                 catch (Exception ex)
@@ -103,14 +103,14 @@ namespace LocalizationUE4
 
             try
             {
-                string FileText = JsonSerialization.SaveToManifest(document);
+                string FileText = JsonSerializer.SaveToManifest(document);
                 File.WriteAllText(fileName, FileText, Encoding.Unicode);
 
                 foreach (var culture in document.Cultures)
                 {
                     string dname = Path.Combine(DirName, culture);
                     string fname = Path.Combine(dname, Title + ".archive");
-                    FileText = JsonSerialization.SaveToArchive(document, culture);
+                    FileText = JsonSerializer.SaveToArchive(document, culture);
                     Directory.CreateDirectory(dname);
                     File.WriteAllText(fname, FileText, Encoding.Unicode);
                 }
@@ -141,7 +141,7 @@ namespace LocalizationUE4
                 status.Text = "Importing... Please wait.";
                 try
                 {
-                    document = ExcelSerialization.Import(importDlg.FileName);
+                    document = ExcelSerializer.Import(importDlg.FileName);
                 }
                 catch (Exception ex)
                 {
@@ -159,7 +159,7 @@ namespace LocalizationUE4
             status.Text = "Exporting... Please wait.";
             try
             {
-                ExcelSerialization.Export(document);
+                ExcelSerializer.Export(document);
             }
             catch (Exception ex)
             {

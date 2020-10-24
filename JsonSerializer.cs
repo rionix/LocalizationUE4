@@ -4,7 +4,7 @@ using Newtonsoft.Json;
 
 namespace LocalizationUE4
 {
-    public static class JsonSerialization
+    public static class JsonSerializer
     {
         public const int ManifestVersion = 1;
         public const string ManifestNamespace = "";

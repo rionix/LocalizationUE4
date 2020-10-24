@@ -66,14 +66,14 @@
     <Compile Include="AboutDialog.Designer.cs">
       <DependentUpon>AboutDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="ExcelSerialization.cs" />
+    <Compile Include="ExcelSerializer.cs" />
     <Compile Include="FindDialog.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FindDialog.Designer.cs">
       <DependentUpon>FindDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="JsonSerialization.cs" />
+    <Compile Include="JsonSerializer.cs" />
     <Compile Include="InternalFormat.cs" />
     <Compile Include="UnrealFormat.cs" />
     <Compile Include="MainFrame.cs">

@@ -166,7 +166,6 @@ namespace LocalizationUE4
                     InternalRecord record = resultNamespace[child.Key];
 
                     text.Culture = Culture;
-                    // TODO: make a good code here
                     if (record.Source != child.Source.Text)
                         text.Text = "";
                     else

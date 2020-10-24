@@ -3,6 +3,7 @@ using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using System.Drawing;
 using System.Media;
 using System.Reflection;
 
@@ -66,8 +67,14 @@ namespace LocalizationUE4
                     JsonSerializer.LoadFromManifest(document, fileName, FileText);
 
                     string metaname = Path.ChangeExtension(fileName, "locmeta");
-                    FileData = File.ReadAllBytes(metaname);
-                    JsonSerializer.LoadFromLocMeta(document, FileData);
+                    if (File.Exists(metaname))
+                    {
+                        FileData = File.ReadAllBytes(metaname);
+                        JsonSerializer.LoadFromLocMeta(document, FileData);
+                    }
+                    else
+                        throw new FileNotFoundException("Can't find file: '" + Path.GetFileName(metaname) +
+                            "'. Please compile translations in Unreal Engine before using this utility.", metaname);
 
                     var dirs = Directory.GetDirectories(DirName);
                     foreach (var subdir in dirs)
@@ -365,6 +372,11 @@ namespace LocalizationUE4
                             rec.Source, ""
                         });
                         dataGrid.Rows[index].Tag = rec;
+
+                        // Compare native culture and source text (must be the same)
+                        if (rec.Source != rec[document.NativeCulture])
+                            dataGrid.Rows[index].DefaultCellStyle.BackColor = Color.FromArgb(255, 163, 141);
+
                         index++;
                     }
                 }
@@ -532,26 +544,6 @@ namespace LocalizationUE4
             hideTranslatedMenuBtn.Checked = !hideTranslatedMenuBtn.Checked;
             hideTranslatedToolBtn.Checked = hideTranslatedMenuBtn.Checked;
             UpdateVisibility();
-        }
-
-        private void OnViewDifference(object sender, EventArgs e)
-        {
-            string result = "";
-            for (int i = 0; i < dataGrid.Rows.Count; ++i)
-            {
-                var row = dataGrid.Rows[i];
-                string src = row.Cells[3].Value.ToString();
-                string dst = row.Cells[4].Value.ToString();
-                if (src != dst)
-                    result += string.Format("{0},{1}\n", row.Cells[1].Value, row.Cells[2].Value);
-            }
-            if (result != "")
-            {
-                status.Text = "Difference found!";
-                MessageBox.Show(result);
-            }
-            else
-                status.Text = "No difference.";
         }
     }
 }

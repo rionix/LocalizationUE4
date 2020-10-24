@@ -50,7 +50,6 @@
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.findMenuBtn = new System.Windows.Forms.ToolStripMenuItem();
             this.hideTranslatedMenuBtn = new System.Windows.Forms.ToolStripMenuItem();
-            this.diffSourceNativeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutMenuBtn = new System.Windows.Forms.ToolStripMenuItem();
             this.statusbar = new System.Windows.Forms.StatusStrip();
@@ -242,8 +241,7 @@
             // 
             this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.findMenuBtn,
-            this.hideTranslatedMenuBtn,
-            this.diffSourceNativeToolStripMenuItem});
+            this.hideTranslatedMenuBtn});
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
             this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.viewToolStripMenuItem.Text = "View";
@@ -253,7 +251,7 @@
             this.findMenuBtn.Image = global::LocalizationUE4.Properties.Resources.icons8_search;
             this.findMenuBtn.Name = "findMenuBtn";
             this.findMenuBtn.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F)));
-            this.findMenuBtn.Size = new System.Drawing.Size(155, 22);
+            this.findMenuBtn.Size = new System.Drawing.Size(180, 22);
             this.findMenuBtn.Text = "Find...";
             this.findMenuBtn.Click += new System.EventHandler(this.OnShowFind);
             // 
@@ -261,17 +259,9 @@
             // 
             this.hideTranslatedMenuBtn.Image = global::LocalizationUE4.Properties.Resources.icons8_show;
             this.hideTranslatedMenuBtn.Name = "hideTranslatedMenuBtn";
-            this.hideTranslatedMenuBtn.Size = new System.Drawing.Size(155, 22);
+            this.hideTranslatedMenuBtn.Size = new System.Drawing.Size(180, 22);
             this.hideTranslatedMenuBtn.Text = "Hide Translated";
             this.hideTranslatedMenuBtn.Click += new System.EventHandler(this.OnHideTranslated);
-            // 
-            // diffSourceNativeToolStripMenuItem
-            // 
-            this.diffSourceNativeToolStripMenuItem.Name = "diffSourceNativeToolStripMenuItem";
-            this.diffSourceNativeToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
-            this.diffSourceNativeToolStripMenuItem.Text = "Difference";
-            this.diffSourceNativeToolStripMenuItem.ToolTipText = "Searches for the difference between the source text and the translation.";
-            this.diffSourceNativeToolStripMenuItem.Click += new System.EventHandler(this.OnViewDifference);
             // 
             // helpToolStripMenuItem
             // 
@@ -571,7 +561,7 @@
             this.dataGrid.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataGrid.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Orange;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Arial Unicode MS", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
@@ -739,7 +729,6 @@
         private System.Windows.Forms.ToolStripMenuItem saveAsMenuBtn;
         private System.Windows.Forms.ToolStripMenuItem hideTranslatedMenuBtn;
         private System.Windows.Forms.ToolStripButton hideTranslatedToolBtn;
-        private System.Windows.Forms.ToolStripMenuItem diffSourceNativeToolStripMenuItem;
         private System.Windows.Forms.DataGridViewTextBoxColumn colNumber;
         private System.Windows.Forms.DataGridViewTextBoxColumn colNamespace;
         private System.Windows.Forms.DataGridViewTextBoxColumn colKey;

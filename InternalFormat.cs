@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace LocalizationUE4
+namespace TranslationEditor
 {
     public class InternalText
     {

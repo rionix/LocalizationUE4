@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 using System.Runtime.InteropServices;
 using Excel = Microsoft.Office.Interop.Excel;
 
-namespace LocalizationUE4
+namespace TranslationEditor
 {
     public static class ExcelSerializer
     {

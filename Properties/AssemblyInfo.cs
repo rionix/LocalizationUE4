@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("LocalizationUE4")]
+[assembly: AssemblyTitle("Translation Editor for UE4")]
 [assembly: AssemblyDescription("Translation Editor for Unreal Engine 4")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("rionix")]
-[assembly: AssemblyProduct("LocalizationUE4")]
+[assembly: AssemblyProduct("Translation Editor for UE4")]
 [assembly: AssemblyCopyright("Copyright © 2020 rionix")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

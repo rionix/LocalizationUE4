@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace LocalizationUE4
+namespace TranslationEditor
 {
     public partial class FindDialog : Form
     {

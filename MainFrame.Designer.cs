@@ -1,4 +1,4 @@
-﻿namespace LocalizationUE4
+﻿namespace TranslationEditor
 {
     partial class MainFrame
     {
@@ -124,7 +124,7 @@
             // 
             // openMenuBtn
             // 
-            this.openMenuBtn.Image = global::LocalizationUE4.Properties.Resources.icons8_open;
+            this.openMenuBtn.Image = global::TranslationEditor.Properties.Resources.icons8_open;
             this.openMenuBtn.Name = "openMenuBtn";
             this.openMenuBtn.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
             this.openMenuBtn.Size = new System.Drawing.Size(194, 22);
@@ -133,7 +133,7 @@
             // 
             // saveMenuBtn
             // 
-            this.saveMenuBtn.Image = global::LocalizationUE4.Properties.Resources.icons8_save;
+            this.saveMenuBtn.Image = global::TranslationEditor.Properties.Resources.icons8_save;
             this.saveMenuBtn.Name = "saveMenuBtn";
             this.saveMenuBtn.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
             this.saveMenuBtn.Size = new System.Drawing.Size(194, 22);
@@ -142,7 +142,7 @@
             // 
             // saveAsMenuBtn
             // 
-            this.saveAsMenuBtn.Image = global::LocalizationUE4.Properties.Resources.icons8_save_as;
+            this.saveAsMenuBtn.Image = global::TranslationEditor.Properties.Resources.icons8_save_as;
             this.saveAsMenuBtn.Name = "saveAsMenuBtn";
             this.saveAsMenuBtn.Size = new System.Drawing.Size(194, 22);
             this.saveAsMenuBtn.Text = "Save As...";
@@ -155,7 +155,7 @@
             // 
             // importMenuBtn
             // 
-            this.importMenuBtn.Image = global::LocalizationUE4.Properties.Resources.icons8_import_csv;
+            this.importMenuBtn.Image = global::TranslationEditor.Properties.Resources.icons8_import_csv;
             this.importMenuBtn.Name = "importMenuBtn";
             this.importMenuBtn.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.O)));
@@ -165,7 +165,7 @@
             // 
             // exportMenuBtn
             // 
-            this.exportMenuBtn.Image = global::LocalizationUE4.Properties.Resources.icons8_export_csv;
+            this.exportMenuBtn.Image = global::TranslationEditor.Properties.Resources.icons8_export_csv;
             this.exportMenuBtn.Name = "exportMenuBtn";
             this.exportMenuBtn.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.S)));
@@ -200,7 +200,7 @@
             // 
             // copyMenuBtn
             // 
-            this.copyMenuBtn.Image = global::LocalizationUE4.Properties.Resources.icons8_copy;
+            this.copyMenuBtn.Image = global::TranslationEditor.Properties.Resources.icons8_copy;
             this.copyMenuBtn.Name = "copyMenuBtn";
             this.copyMenuBtn.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.C)));
             this.copyMenuBtn.Size = new System.Drawing.Size(180, 22);
@@ -209,7 +209,7 @@
             // 
             // pasteMenuBtn
             // 
-            this.pasteMenuBtn.Image = global::LocalizationUE4.Properties.Resources.icons8_paste;
+            this.pasteMenuBtn.Image = global::TranslationEditor.Properties.Resources.icons8_paste;
             this.pasteMenuBtn.Name = "pasteMenuBtn";
             this.pasteMenuBtn.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.V)));
             this.pasteMenuBtn.Size = new System.Drawing.Size(180, 22);
@@ -248,18 +248,18 @@
             // 
             // findMenuBtn
             // 
-            this.findMenuBtn.Image = global::LocalizationUE4.Properties.Resources.icons8_search;
+            this.findMenuBtn.Image = global::TranslationEditor.Properties.Resources.icons8_search;
             this.findMenuBtn.Name = "findMenuBtn";
             this.findMenuBtn.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F)));
-            this.findMenuBtn.Size = new System.Drawing.Size(180, 22);
+            this.findMenuBtn.Size = new System.Drawing.Size(155, 22);
             this.findMenuBtn.Text = "Find...";
             this.findMenuBtn.Click += new System.EventHandler(this.OnShowFind);
             // 
             // hideTranslatedMenuBtn
             // 
-            this.hideTranslatedMenuBtn.Image = global::LocalizationUE4.Properties.Resources.icons8_show;
+            this.hideTranslatedMenuBtn.Image = global::TranslationEditor.Properties.Resources.icons8_show;
             this.hideTranslatedMenuBtn.Name = "hideTranslatedMenuBtn";
-            this.hideTranslatedMenuBtn.Size = new System.Drawing.Size(180, 22);
+            this.hideTranslatedMenuBtn.Size = new System.Drawing.Size(155, 22);
             this.hideTranslatedMenuBtn.Text = "Hide Translated";
             this.hideTranslatedMenuBtn.Click += new System.EventHandler(this.OnHideTranslated);
             // 
@@ -273,7 +273,7 @@
             // 
             // aboutMenuBtn
             // 
-            this.aboutMenuBtn.Image = global::LocalizationUE4.Properties.Resources.icons8_about;
+            this.aboutMenuBtn.Image = global::TranslationEditor.Properties.Resources.icons8_about;
             this.aboutMenuBtn.Name = "aboutMenuBtn";
             this.aboutMenuBtn.Size = new System.Drawing.Size(107, 22);
             this.aboutMenuBtn.Text = "About";
@@ -340,7 +340,7 @@
             // openToolBtn
             // 
             this.openToolBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.openToolBtn.Image = global::LocalizationUE4.Properties.Resources.icons8_open;
+            this.openToolBtn.Image = global::TranslationEditor.Properties.Resources.icons8_open;
             this.openToolBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.openToolBtn.Name = "openToolBtn";
             this.openToolBtn.Size = new System.Drawing.Size(23, 22);
@@ -350,7 +350,7 @@
             // saveToolBtn
             // 
             this.saveToolBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.saveToolBtn.Image = global::LocalizationUE4.Properties.Resources.icons8_save;
+            this.saveToolBtn.Image = global::TranslationEditor.Properties.Resources.icons8_save;
             this.saveToolBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.saveToolBtn.Name = "saveToolBtn";
             this.saveToolBtn.Size = new System.Drawing.Size(23, 22);
@@ -365,7 +365,7 @@
             // copyToolBtn
             // 
             this.copyToolBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.copyToolBtn.Image = global::LocalizationUE4.Properties.Resources.icons8_copy;
+            this.copyToolBtn.Image = global::TranslationEditor.Properties.Resources.icons8_copy;
             this.copyToolBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.copyToolBtn.Name = "copyToolBtn";
             this.copyToolBtn.Size = new System.Drawing.Size(23, 22);
@@ -375,7 +375,7 @@
             // pasteToolBtn
             // 
             this.pasteToolBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.pasteToolBtn.Image = global::LocalizationUE4.Properties.Resources.icons8_paste;
+            this.pasteToolBtn.Image = global::TranslationEditor.Properties.Resources.icons8_paste;
             this.pasteToolBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.pasteToolBtn.Name = "pasteToolBtn";
             this.pasteToolBtn.Size = new System.Drawing.Size(23, 22);
@@ -390,7 +390,7 @@
             // importToolBtn
             // 
             this.importToolBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.importToolBtn.Image = global::LocalizationUE4.Properties.Resources.icons8_import_csv;
+            this.importToolBtn.Image = global::TranslationEditor.Properties.Resources.icons8_import_csv;
             this.importToolBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.importToolBtn.Name = "importToolBtn";
             this.importToolBtn.Size = new System.Drawing.Size(23, 22);
@@ -400,7 +400,7 @@
             // exportToolBtn
             // 
             this.exportToolBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.exportToolBtn.Image = global::LocalizationUE4.Properties.Resources.icons8_export_csv;
+            this.exportToolBtn.Image = global::TranslationEditor.Properties.Resources.icons8_export_csv;
             this.exportToolBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.exportToolBtn.Name = "exportToolBtn";
             this.exportToolBtn.Size = new System.Drawing.Size(23, 22);
@@ -433,7 +433,7 @@
             // hideTranslatedToolBtn
             // 
             this.hideTranslatedToolBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.hideTranslatedToolBtn.Image = global::LocalizationUE4.Properties.Resources.icons8_show;
+            this.hideTranslatedToolBtn.Image = global::TranslationEditor.Properties.Resources.icons8_show;
             this.hideTranslatedToolBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.hideTranslatedToolBtn.Name = "hideTranslatedToolBtn";
             this.hideTranslatedToolBtn.Size = new System.Drawing.Size(23, 22);
@@ -444,7 +444,7 @@
             // findToolBtn
             // 
             this.findToolBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.findToolBtn.Image = global::LocalizationUE4.Properties.Resources.icons8_search;
+            this.findToolBtn.Image = global::TranslationEditor.Properties.Resources.icons8_search;
             this.findToolBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.findToolBtn.Name = "findToolBtn";
             this.findToolBtn.Size = new System.Drawing.Size(23, 22);
@@ -459,7 +459,7 @@
             // aboutToolBtn
             // 
             this.aboutToolBtn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.aboutToolBtn.Image = global::LocalizationUE4.Properties.Resources.icons8_about;
+            this.aboutToolBtn.Image = global::TranslationEditor.Properties.Resources.icons8_about;
             this.aboutToolBtn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.aboutToolBtn.Name = "aboutToolBtn";
             this.aboutToolBtn.Size = new System.Drawing.Size(23, 22);
@@ -554,7 +554,6 @@
             // 
             this.dataGrid.AllowUserToAddRows = false;
             this.dataGrid.AllowUserToDeleteRows = false;
-            this.dataGrid.AllowUserToResizeColumns = false;
             this.dataGrid.AllowUserToResizeRows = false;
             this.dataGrid.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.DisplayedCellsExceptHeaders;
             this.dataGrid.BackgroundColor = System.Drawing.Color.SkyBlue;
@@ -563,12 +562,10 @@
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(128)))));
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Arial Unicode MS", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.dataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGrid.ColumnHeadersHeight = 24;
+            this.dataGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dataGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colNumber,
             this.colNamespace,
@@ -579,7 +576,7 @@
             dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle3.Font = new System.Drawing.Font("Arial Unicode MS", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.SteelBlue;
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.dataGrid.DefaultCellStyle = dataGridViewCellStyle3;
@@ -598,7 +595,6 @@
             this.dataGrid.TabIndex = 0;
             this.dataGrid.SelectionChanged += new System.EventHandler(this.OnSelectedIndexChanged);
             this.dataGrid.SortCompare += new System.Windows.Forms.DataGridViewSortCompareEventHandler(this.OnSortCompare);
-            this.dataGrid.Resize += new System.EventHandler(this.OnDataGridViewResize);
             // 
             // colNumber
             // 
@@ -617,7 +613,6 @@
             this.colNamespace.HeaderText = "Namespace";
             this.colNamespace.Name = "colNamespace";
             this.colNamespace.ReadOnly = true;
-            this.colNamespace.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.colNamespace.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.colNamespace.Width = 128;
             // 
@@ -627,26 +622,23 @@
             this.colKey.HeaderText = "Key";
             this.colKey.Name = "colKey";
             this.colKey.ReadOnly = true;
-            this.colKey.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             this.colKey.Width = 192;
             // 
             // colSource
             // 
-            this.colSource.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.colSource.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.colSource.HeaderText = "Source";
             this.colSource.Name = "colSource";
             this.colSource.ReadOnly = true;
             this.colSource.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.colSource.Width = 215;
             // 
             // colTranslation
             // 
-            this.colTranslation.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
+            this.colTranslation.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.colTranslation.HeaderText = "Translation";
             this.colTranslation.Name = "colTranslation";
             this.colTranslation.ReadOnly = true;
             this.colTranslation.Resizable = System.Windows.Forms.DataGridViewTriState.False;
-            this.colTranslation.Width = 215;
             // 
             // MainFrame
             // 
@@ -661,7 +653,7 @@
             this.MainMenuStrip = this.menu;
             this.MinimumSize = new System.Drawing.Size(320, 240);
             this.Name = "MainFrame";
-            this.Text = "Localization UE4";
+            this.Text = "Translation Editor for UE4";
             this.menu.ResumeLayout(false);
             this.menu.PerformLayout();
             this.statusbar.ResumeLayout(false);

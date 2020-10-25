@@ -1,4 +1,4 @@
-﻿namespace LocalizationUE4
+﻿namespace TranslationEditor
 {
     partial class FindDialog
     {

@@ -15,9 +15,13 @@ namespace TranslationEditor
         // DATA
         //
 
-        public FindDialog findDlg = null;
         public InternalFormat document = null;
-        public string fileName = "";
+
+        private string fileName = "";
+        private string manifestDir = "";
+        private string exportDir = "";
+
+        private FindDialog findDlg = null;
 
         //
         // Constructors and destructor
@@ -48,8 +52,12 @@ namespace TranslationEditor
 
         private void OnOpen(object sender, EventArgs e)
         {
+            if (manifestDir != "")
+                openDlg.InitialDirectory = manifestDir;
+
             if (openDlg.ShowDialog(this) == DialogResult.OK)
             {
+                manifestDir = Path.GetDirectoryName(openDlg.FileName);
                 status.Text = "Loading... Please wait.";
                 document = new InternalFormat();
 
@@ -133,8 +141,13 @@ namespace TranslationEditor
         {
             if (document == null)
                 return;
+
+            if (manifestDir != "")
+                saveDlg.InitialDirectory = manifestDir;
+
             if (saveDlg.ShowDialog(this) == DialogResult.OK)
             {
+                manifestDir = Path.GetDirectoryName(saveDlg.FileName);
                 fileName = saveDlg.FileName;
                 OnSave(sender, e);
             }
@@ -142,8 +155,12 @@ namespace TranslationEditor
 
         private void OnImport(object sender, EventArgs e)
         {
+            if (exportDir != "")
+                importDlg.InitialDirectory = exportDir;
+
             if (importDlg.ShowDialog(this) == DialogResult.OK)
             {
+                exportDir = Path.GetDirectoryName(importDlg.FileName);
                 status.Text = "Importing... Please wait.";
                 try
                 {
@@ -162,16 +179,24 @@ namespace TranslationEditor
         {
             if (document == null)
                 return;
-            status.Text = "Exporting... Please wait.";
-            try
+
+            if (exportDir != "")
+                exportDlg.InitialDirectory = exportDir;
+
+            if (exportDlg.ShowDialog(this) == DialogResult.OK)
             {
-                ExcelSerializer.Export(document);
+                exportDir = Path.GetDirectoryName(exportDlg.FileName);
+                status.Text = "Exporting... Please wait.";
+                try
+                {
+                    ExcelSerializer.Export(document, exportDlg.FileName);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(this, ex.Message, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                status.Text = "Export finished.";
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(this, ex.Message, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            status.Text = "Export finished.";
         }
 
         //

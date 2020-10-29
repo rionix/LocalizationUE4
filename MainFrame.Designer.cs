@@ -87,6 +87,7 @@
             this.colKey = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colSource = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colTranslation = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.exportDlg = new System.Windows.Forms.SaveFileDialog();
             this.menu.SuspendLayout();
             this.statusbar.SuspendLayout();
             this.toolbar.SuspendLayout();
@@ -481,6 +482,7 @@
             // 
             this.importDlg.DefaultExt = "xlsx";
             this.importDlg.Filter = "Excel Files|*.xlsx|All Files|*.*";
+            this.importDlg.Title = "Import";
             // 
             // namespaceEdit
             // 
@@ -640,6 +642,13 @@
             this.colTranslation.ReadOnly = true;
             this.colTranslation.Resizable = System.Windows.Forms.DataGridViewTriState.False;
             // 
+            // exportDlg
+            // 
+            this.exportDlg.DefaultExt = "xlsx";
+            this.exportDlg.Filter = "Excel Files|*.xlsx|All Files|*.*";
+            this.exportDlg.OverwritePrompt = false;
+            this.exportDlg.Title = "Export";
+            // 
             // MainFrame
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -726,6 +735,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colKey;
         private System.Windows.Forms.DataGridViewTextBoxColumn colSource;
         private System.Windows.Forms.DataGridViewTextBoxColumn colTranslation;
+        private System.Windows.Forms.SaveFileDialog exportDlg;
     }
 }
 

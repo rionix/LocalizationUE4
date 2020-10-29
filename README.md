@@ -6,8 +6,8 @@
 
 - Microsoft Visual Studio 2019
 - C# and .Net 4.0 or higher
-- Microsoft Office (Excel) with Primary Interop Assemblies
-- Newtonsoft.Json 12.0 or higher
+- Newtonsoft.Json 12.0 *(via NuGet)*
+- EPPlus 4.5 *(via NuGet)*
 
 ## Features
 - Multiline editing *(yes, UE4 still not support this)*
@@ -29,7 +29,7 @@ How to change localizations in the program:
 This program can export to Microsoft Excel as a single worksheet document. How to import and export localization with this program:
 
 - Open `*.manifest` file.
-- Press `File -> Export`. The program will open Excel and start exporting to it. It can take some time.
+- Press `File -> Export...` and program will create Excel file. 
 - You will get a document similar to this:
     ![Excel](ReadmeImages/Excel.png "Excel Document")
 - Untranslated cells will be red. This will allow the translator to find them quickly.
@@ -38,10 +38,6 @@ This program can export to Microsoft Excel as a single worksheet document. How t
 - When you are done with translation, start the program and select `File -> Import`.
 - Select `File -> Save As...` and save to your game `*.manifest` file.
 - Don't forget to **Gather** and **Compile** translations in Unreal Engine 4 again.
-
-## Known issues
-
-- Looks like **Foxit Reader** software conflicts with Microsoft.Office.Interop
 
 ## Discussion
 

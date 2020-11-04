@@ -2,7 +2,7 @@
 
 ![Screenshot](ReadmeImages/Screenshot.png "Screenshot")
 
-## Compilation time and runtime dependencies
+## Compilation and runtime dependencies
 
 - Microsoft Visual Studio 2019
 - C# and .Net 4.0 or higher
@@ -10,33 +10,34 @@
 - EPPlus 4.5 *(via NuGet)*
 
 ## Features
-- Multiline editing *(yes, UE4 still not support this)*
+- Multiline editing *(yes, UE4 still doesn't support it)*
 - Export and Import from Excel files
 - Sort by any column
+- Search text
 
-## Using
+## Usage
 
-How to change localizations in the program:
+How to edit localizations in the program:
 
 - **Gather** and **Compile** translations in Unreal Engine 4
 - Open `*.manifest` file from `[YOUR_PROJECT]\Content\Localization\Game`
 - All `*.archive` files will be loaded automaticaly
-- Modify localization as you want. Press **[Ctrl]+[Enter]** to apply modifications to the selected translation.
+- Start editing. Press **[Ctrl]+[Enter]** to apply changes.
 - Save to `*.manifest` file. All `*.archive` files will be saved automaticaly.
 - **Gather** and **Compile** translations in Unreal Engine 4 again.
 - Enjoy :)
 
-This program can export to Microsoft Excel as a single worksheet document. How to import and export localization with this program:
+This program also allows exporting to Microsoft Excel, as well as reimporting back from it. Here's how to do it:
 
 - Open `*.manifest` file.
-- Press `File -> Export...` and program will create Excel file. 
-- You will get a document similar to this:
+- Press `File -> Export...` and program will create an Excel file. 
+- You will get a single sheet document similar to this one:
     ![Excel](ReadmeImages/Excel.png "Excel Document")
-- Untranslated cells will be red. This will allow the translator to find them quickly.
-- You can modify the document as you want down to line: **--== !!! DO NOT TRANSLATE THE TEXT BELOW !!! == SERVICE DATA ==--**
-- You can sort rows as you like, but before importing, you need to sort them by the first column.
-- When you are done with translation, start the program and select `File -> Import`.
-- Select `File -> Save As...` and save to your game `*.manifest` file.
+- Untranslated cells will be highlighted in red. This allows the translator to find them quickly.
+- You can edit the document up until the line that says: **--== !!! DO NOT TRANSLATE THE TEXT BELOW !!! == SERVICE DATA ==--**
+- You can sort rows any way you like, but before reimporting you need to re-sort them by the first column.
+- When you are ready to reimport, start the program and select `File -> Import`.
+- Select `File -> Save As...` and save to your `*.manifest` file.
 - Don't forget to **Gather** and **Compile** translations in Unreal Engine 4 again.
 
 ## Discussion

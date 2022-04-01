@@ -277,9 +277,10 @@ namespace TranslationEditor
                 throw new FormatException("LocMeta magic number is not correct!");
             index += 16;
 
-            Byte Version = FileData[index];
-            if (Version > 0)
-                throw new FormatException("Invalid file version!");
+            // Skip file version
+            //Byte Version = FileData[index];
+            //if (Version > 0)
+            //    throw new FormatException("Invalid file version!");
             index += 1;
 
             int offset = 0;

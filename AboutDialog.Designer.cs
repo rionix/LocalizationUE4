@@ -90,7 +90,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(280, 30);
             this.label1.TabIndex = 4;
-            this.label1.Text = "Unreal® Engine, Copyright 1998 – 2020, Epic Games, Inc. All rights reserved.";
+            this.label1.Text = "Unreal® Engine, Copyright 1998 – 2022, Epic Games, Inc. All rights reserved.";
             this.label1.Click += new System.EventHandler(this.OnClick);
             // 
             // label2
@@ -112,7 +112,7 @@
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(280, 20);
             this.label3.TabIndex = 6;
-            this.label3.Text = "© 2020 Icons8 LLC";
+            this.label3.Text = "© 2022 Icons8 LLC";
             this.label3.Click += new System.EventHandler(this.OnClick);
             // 
             // AboutDialog
@@ -127,8 +127,9 @@
             this.Controls.Add(this.linkLabel1);
             this.Controls.Add(this.nameLabel);
             this.Controls.Add(this.pictureBox1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "AboutDialog";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
